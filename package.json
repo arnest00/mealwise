@@ -8,7 +8,7 @@
     "start": "next start",
     "test": "jest",
     "test:coverage": "npm run test -- --coverage",
-    "lint": "next lint"
+    "lint:css": "stylelint **/*.scss"
   },
   "dependencies": {
     "next": "12.1.0",
