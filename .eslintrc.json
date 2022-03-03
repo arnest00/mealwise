@@ -1,3 +1,25 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    // what environments code expected to run in
+    "browser": true
+  },
+  "rules": {
+    // enable rules in plugins
+    // override options in configs
+  },
+  "extends": [
+    // used to apply bulk rule config from configs
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "next/core-web-vitals"
+  ],
+  "plugins": [
+    // applies linting rules for different code bases
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    // what JS language options linter will support
+    "project": "./tsconfig.json"
+  }
 }
