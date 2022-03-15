@@ -1,9 +1,10 @@
 import { NextPage } from 'next';
+import Link from 'next/link';
 import Head from 'next/head';
 
 import styles from '../styles/Home.module.css';
 
-const Home: NextPage = () => {
+const HomePage: NextPage = () => {
   const {
     container, main, title,
   } = styles;
@@ -19,9 +20,27 @@ const Home: NextPage = () => {
         <h1 className={title}>
           mealwise
         </h1>
+
+        <ul>
+          <li>
+            <Link href="/recipes">
+              Recipe Book
+            </Link>
+          </li>
+          <li>
+            <Link href="/planner">
+              Meal Plan
+            </Link>
+          </li>
+          <li>
+            <Link href="/shopping-list">
+              Shopping List
+            </Link>
+          </li>
+        </ul>
       </main>
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
