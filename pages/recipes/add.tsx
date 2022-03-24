@@ -1,5 +1,16 @@
+import { Fragment } from 'react';
 import { NextPage } from 'next';
 
-const AddRecipePage: NextPage = () => <h1>Add Recipe</h1>;
+import RecipeForm from '../../components/organisms/RecipeForm';
+
+const AddRecipePage: NextPage = () => {
+  return (
+    <Fragment>
+      <h1>Add Recipe</h1>
+
+      <RecipeForm />
+    </Fragment>
+  );
+};
 
 export default AddRecipePage;
