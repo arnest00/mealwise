@@ -11,27 +11,29 @@ const HomePage: NextPage = () => {
       </Head>
 
       <main className='main'>
-        <h1 className='main__title'>
+        <h1 className='text-align-center'>
           mealwise
         </h1>
 
-        <ul>
-          <li>
-            <Link href="/recipes">
-              Recipe Book
-            </Link>
-          </li>
-          <li>
-            <Link href="/planner">
-              Meal Plan
-            </Link>
-          </li>
-          <li>
-            <Link href="/shopping-list">
-              Shopping List
-            </Link>
-          </li>
-        </ul>
+        <nav>
+          <ul>
+            <li>
+              <Link href="/recipes">
+                Recipe Book
+              </Link>
+            </li>
+            <li>
+              <Link href="/planner">
+                Meal Plan
+              </Link>
+            </li>
+            <li>
+              <Link href="/shopping-list">
+                Shopping List
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </main>
     </div>
   );
