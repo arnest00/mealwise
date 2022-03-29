@@ -1,5 +1,15 @@
 import { NextPage } from 'next';
 
-const ShoppingListPage: NextPage = () => <h1>Shopping List</h1>;
+import Layout from '../../components/organisms/Layout';
+
+const ShoppingListPage: NextPage = () => {
+  return (
+    <Layout>
+      <h1 className="text-align-center">
+        Shopping List
+      </h1>
+    </Layout>
+  );
+};
 
 export default ShoppingListPage;

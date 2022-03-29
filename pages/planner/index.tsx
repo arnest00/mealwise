@@ -1,5 +1,15 @@
 import { NextPage } from 'next';
 
-const PlannerPage: NextPage = () => <h1>Meal Plan</h1>;
+import Layout from '../../components/organisms/Layout';
+
+const PlannerPage: NextPage = () => {
+  return (
+    <Layout>
+      <h1 className="text-align-center">
+        Meal Plan
+      </h1>
+    </Layout>
+  );
+};
 
 export default PlannerPage;

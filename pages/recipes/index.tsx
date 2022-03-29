@@ -1,16 +1,20 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
 
-const RecipesPage: NextPage = () => (
-  <div>
-    <h1>Recipe Book</h1>
+import Layout from '../../components/organisms/Layout';
 
-    <ul>
-      <li>
-        <Link href="/recipes/add">Add Recipe</Link>
-      </li>
-    </ul>
-  </div>
-);
+const RecipesPage: NextPage = () => {
+  return (
+    <Layout>
+      <h1 className="text-align-center">Recipe Book</h1>
+
+      <ul>
+        <li>
+          <Link href="/recipes/add">Add Recipe</Link>
+        </li>
+      </ul>
+    </Layout>
+  );
+};
 
 export default RecipesPage;

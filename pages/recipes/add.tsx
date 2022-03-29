@@ -1,15 +1,16 @@
 import { Fragment } from 'react';
 import { NextPage } from 'next';
 
+import Layout from '../../components/organisms/Layout';
 import RecipeForm from '../../components/organisms/RecipeForm';
 
 const AddRecipePage: NextPage = () => {
   return (
-    <Fragment>
-      <h1>Add Recipe</h1>
+    <Layout>
+      <h1 className="text-align-center">Add Recipe</h1>
 
       <RecipeForm />
-    </Fragment>
+    </Layout>
   );
 };
 
