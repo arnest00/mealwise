@@ -6,6 +6,10 @@
   "rules": {
     // enable rules in plugins
     // override options in configs
+    "react/function-component-definition": [ "enabled", {
+      "namedComponents": ["function-declaration", "function-expression", "arrow-function"],
+      "unnamedComponents": ["function-expression", "arrow-function"]
+    }]
   },
   "extends": [
     // used to apply bulk rule config from configs
