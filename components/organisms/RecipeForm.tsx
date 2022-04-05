@@ -3,7 +3,6 @@ import SelectGroup from '../atoms/SelectGroup';
 import Button from '../atoms/Button';
 
 import IngredientInputs from '../molecules/IngredientInputs';
-import RecipeStepInputs from '../molecules/RecipeStepInputs';
 
 const RecipeForm = () => {
   return (
@@ -29,9 +28,15 @@ const RecipeForm = () => {
           isRequired={false}
         />
 
+        <InputGroup
+          inputName='servings'
+          inputType='number'
+          isRequired={false}
+        />
+
         <SelectGroup
           selectName='category'
-          isRequired={false}
+          isRequired={true}
           options={[
             'breakfast',
             'lunch',
@@ -48,19 +53,6 @@ const RecipeForm = () => {
         <Button
           buttonType='button'
           buttonName='add ingredient'
-        />
-      </fieldset>
-
-      <fieldset>
-        <legend>Directions</legend>
-
-        <ol>
-          <RecipeStepInputs />
-        </ol>
-
-        <Button
-          buttonType='button'
-          buttonName='add step'
         />
       </fieldset>
 
