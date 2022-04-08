@@ -19,6 +19,7 @@ const RecipesPage: NextPage = () => {
       description: 'When you have time to cook dinner and breakfast at the same time.'
     },
   ];
+  
   const seedDinnerRecipes = [
     {
       name: 'Toast Sandwich',

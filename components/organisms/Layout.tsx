@@ -1,8 +1,9 @@
 import Head from 'next/head';
+import React from 'react';
 
 import Navbar from '../molecules/Navbar';
 
-const Layout = ({ children }) => {
+const Layout: React.FC<{}> = ({ children }) => {
   return (
     <div>
       <Head>
