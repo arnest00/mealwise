@@ -1,4 +1,4 @@
-interface ButtonProps {
+type ButtonProps = {
   buttonType: 'button' | 'submit',
   buttonName: string
 };

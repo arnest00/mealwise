@@ -1,4 +1,4 @@
-interface InputProps {
+type InputProps = {
   inputName: string,
   inputType: 'text' | 'number',
   isRequired: boolean

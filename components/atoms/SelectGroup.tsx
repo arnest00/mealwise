@@ -1,4 +1,4 @@
-interface SelectProps {
+type SelectProps = {
   selectName: string,
   isRequired: boolean,
   options: string[]
