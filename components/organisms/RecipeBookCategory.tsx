@@ -1,13 +1,9 @@
+import IRecipe from '../../interfaces/IRecipe';
 import RecipeCard from '../molecules/RecipeCard';
 
-interface Recipe {
-  name: string,
-  description: string
-}
-
-interface RecipeBookCategoryProps {
+type RecipeBookCategoryProps = {
   categoryName: string,
-  categoryRecipes?: Recipe[]
+  categoryRecipes?: IRecipe[]
 };
 
 const RecipeBookCategory = ({ categoryName, categoryRecipes }: RecipeBookCategoryProps ) => {
@@ -15,14 +11,14 @@ const RecipeBookCategory = ({ categoryName, categoryRecipes }: RecipeBookCategor
     <section>
       <h2>{categoryName}</h2>
 
-      {categoryRecipes?.map((recipe, idx) => (
+      {categoryRecipes?.map(({ name, description }, idx) => (
         <RecipeCard
           key={idx}
-          mealName={recipe.name}
-          mealDescription={recipe.description}
+          name={name}
+          description={description}
         />
       ))}
-  </section>
+    </section>
   );
 };
 

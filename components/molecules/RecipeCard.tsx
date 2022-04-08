@@ -1,17 +1,13 @@
+import IRecipe from '../../interfaces/IRecipe';
 import Button from '../atoms/Button';
 
-interface RecipeCardProps {
-  mealName: string,
-  mealDescription: string
-};
-
-const RecipeCard = ({ mealName, mealDescription }: RecipeCardProps ) => {
+const RecipeCard = ({ name, description }: IRecipe ) => {
   return (
     <article>
-      <h3>{mealName}</h3>
+      <h3>{name}</h3>
 
       <p>
-        {mealDescription}
+        {description}
       </p>
 
       <Button
