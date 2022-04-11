@@ -9,7 +9,7 @@ type RecipeBookCategoryProps = {
 const RecipeBookCategory = ({ categoryName, categoryRecipes }: RecipeBookCategoryProps ) => {
   return (
     <section>
-      <h2>{categoryName}</h2>
+      <h2 className="section">{categoryName}</h2>
 
       {categoryRecipes?.map(({ name, description }, idx) => (
         <RecipeCard

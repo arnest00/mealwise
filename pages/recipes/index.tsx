@@ -33,7 +33,7 @@ const RecipesPage: NextPage = () => {
 
   return (
     <Layout>
-      <h1 className="text-align-center">Recipe Book</h1>
+      <h1 className="title text-align-center">Recipe Book</h1>
 
       <ul>
         <li>

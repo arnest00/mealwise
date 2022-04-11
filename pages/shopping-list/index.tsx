@@ -5,7 +5,7 @@ import Layout from '../../components/organisms/Layout';
 const ShoppingListPage: NextPage = () => {
   return (
     <Layout>
-      <h1 className="text-align-center">
+      <h1 className="title text-align-center">
         Shopping List
       </h1>
     </Layout>

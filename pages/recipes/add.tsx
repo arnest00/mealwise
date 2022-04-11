@@ -6,7 +6,7 @@ import RecipeForm from '../../components/organisms/RecipeForm';
 const AddRecipePage: NextPage = () => {
   return (
     <Layout>
-      <h1 className="text-align-center">Add Recipe</h1>
+      <h1 className="title text-align-center">Add Recipe</h1>
 
       <RecipeForm />
     </Layout>
