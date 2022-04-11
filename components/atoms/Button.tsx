@@ -1,12 +1,16 @@
 type ButtonProps = {
-  buttonType: 'button' | 'submit',
-  buttonName: string
+  buttonType: 'button' | 'submit' | 'reset',
+  buttonName: string,
+  modifier?: string
 };
 
-const Button = ({ buttonType, buttonName }: ButtonProps ) => {
+const Button = ({ buttonType, buttonName, modifier }: ButtonProps ) => {
+  const classes = modifier ? `button button${modifier}` : `button`;
+
   return (
     <button
-      type={buttonType}>
+      type={buttonType}
+      className={classes}>
       {buttonName}
     </button>
   );

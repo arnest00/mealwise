@@ -1,0 +1,82 @@
+.button {
+  outline: none;
+  border: transparent;
+  box-shadow: 0 0 0.13rem $neutral-grey-10;
+  border-radius: 0.25rem;
+  padding: 0.75rem 1.25rem;
+  background-color: $primary-30;
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  color: $neutral-white;
+  transition:
+    background-color 125ms linear,
+    box-shadow 125ms linear,
+    transform 125ms linear;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: $primary-40;
+  }
+  
+  &:hover {
+    box-shadow: 0 0 0.25rem $neutral-grey-10;
+  }
+
+  &:active {
+    background-color: $primary-50;
+    box-shadow: 0 0 0 transparent;
+    transform: scale(0.98, 0.98);
+  }
+
+  &--link {
+    box-shadow: unset;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: underline;
+    letter-spacing: unset;
+    color: $secondary-10;
+    transition: color 125ms linear;
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      color: $secondary-30;
+    }
+
+    &:hover {
+      box-shadow: unset;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.25rem $secondary-30;
+    }
+
+    &:active {
+      background-color: unset;
+      box-shadow: unset;
+      color: $secondary-50;
+      transform: unset;
+    }
+  }
+
+  &--good-job {
+    background-color: $accent-good-job-30;
+
+    &:hover,
+    &:focus {
+      background-color: $accent-good-job-50;
+    }
+  }
+  
+  &--bad-job {
+    background-color: $accent-bad-job-30;
+
+    &:hover,
+    &:focus {
+      background-color: $accent-bad-job-50;
+    }
+  }
+}

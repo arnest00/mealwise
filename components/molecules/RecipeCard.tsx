@@ -13,6 +13,7 @@ const RecipeCard = ({ name, description }: IRecipe ) => {
       <Button
         buttonType='button'
         buttonName='view recipe'
+        modifier='--link'
       />
     </article>
   );

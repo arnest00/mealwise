@@ -60,10 +60,12 @@ const RecipeForm = () => {
         <Button
           buttonType='submit'
           buttonName='save'
+          modifier='--good-job'
         />
         <Button
-          buttonType='button'
+          buttonType='reset'
           buttonName='cancel'
+          modifier='--bad-job'
         />
       </div>
     </form>
