@@ -8,45 +8,49 @@ const RecipeForm = () => {
   return (
     <form>
       <fieldset>
-        <legend>Recipe</legend>
+        <legend>Recipe Information</legend>
 
         <InputGroup
-          inputName='name'
+          inputName='recipe name'
           inputType='text'
           isRequired={true}
+          placeholder='Name'
         />
         
         <InputGroup
-          inputName='description'
+          inputName='recipe description'
           inputType='text'
           isRequired={false}
+          placeholder='Description (optional)'
         />
 
         <InputGroup
-          inputName='link'
-          inputType='text'
+          inputName='link to recipe'
+          inputType='url'
           isRequired={false}
+          placeholder='Link (optional)'
         />
 
         <InputGroup
-          inputName='servings'
+          inputName='number of servings'
           inputType='number'
           isRequired={false}
+          placeholder='Servings (optional)'
         />
 
         <SelectGroup
           selectName='category'
           isRequired={true}
           options={[
-            'breakfast',
-            'lunch',
-            'dinner'
+            'Breakfast',
+            'Lunch',
+            'Dinner'
           ]}
         />
       </fieldset>
 
       <fieldset>
-        <legend>Ingredients</legend>
+        <legend>Ingredient Information</legend>
 
         <IngredientInputs />
 
@@ -64,7 +68,7 @@ const RecipeForm = () => {
         />
         <Button
           buttonType='reset'
-          buttonName='cancel'
+          buttonName='clear'
           modifier='--bad-job'
         />
       </div>

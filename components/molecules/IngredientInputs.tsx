@@ -7,19 +7,22 @@ const IngredientInputs = () => {
   return (
     <Fragment>
       <InputGroup
-        inputName='name'
+        inputName='ingredient name'
         inputType='text'
         isRequired={true}
+        placeholder='Name'
       />
       <InputGroup
         inputName='quantity'
         inputType='number'
         isRequired={true}
+        placeholder="1"
       />
       <SelectGroup
         selectName='unit'
         isRequired={false}
         options={[
+          '',
           'teaspoon (t)',
           'tablespoon (tbsp)',
           'fluid ounce (fl oz)',
