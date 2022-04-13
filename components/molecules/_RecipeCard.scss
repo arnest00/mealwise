@@ -1,0 +1,11 @@
+.card {
+  padding: 1rem;
+
+  &__title {
+    margin: 0;
+  }
+
+  &__description {
+    color: $neutral-grey-10;
+  }
+}

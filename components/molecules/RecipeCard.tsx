@@ -3,10 +3,10 @@ import Button from '../atoms/Button';
 
 const RecipeCard = ({ name, description }: IRecipe ) => {
   return (
-    <article>
-      <h3 className="bigger">{name}</h3>
+    <article className="card">
+      <h3 className="bigger card__title">{name}</h3>
 
-      <p>
+      <p className="card__description">
         {description}
       </p>
 
