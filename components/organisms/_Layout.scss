@@ -1,0 +1,10 @@
+.layout {
+  position: relative;
+
+  &__header {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}

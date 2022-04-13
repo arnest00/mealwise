@@ -1,0 +1,38 @@
+.nav {
+  box-sizing: border-box;
+  background-color: $primary-30;
+  color: $neutral-white;
+
+  &__link-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__list-item {
+    text-transform: uppercase;
+  }
+  
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      background-color: $primary-10;
+    }
+  }
+
+  &__link-icon {
+    margin-bottom: 0.25rem;
+    height: 1.63rem;
+    width: 1.63rem;
+  }
+}

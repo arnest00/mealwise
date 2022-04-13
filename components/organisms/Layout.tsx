@@ -5,7 +5,7 @@ import Navbar from '../molecules/Navbar';
 
 const Layout: React.FC<{}> = ({ children }) => {
   return (
-    <div>
+    <div className="layout">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -13,11 +13,11 @@ const Layout: React.FC<{}> = ({ children }) => {
         <title>mealwise</title>
       </Head>
 
-      <header>
+      <header className="layout__header">
         <Navbar />
       </header>
 
-      <main>
+      <main className="layout__main">
         {children}
       </main>
     </div>
