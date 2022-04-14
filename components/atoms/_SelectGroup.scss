@@ -1,5 +1,8 @@
 .input-group {
   &__select {
+    outline: none;
+    display: block;
+    width: 100%;
     margin: 0 0 0.75rem;
     border: none;
     border-bottom: 1px solid $secondary-10;
@@ -7,9 +10,7 @@
     background-color: transparent;
 
     &:focus {
-      outline: none;
-      border-radius: 0.25rem;
-      box-shadow: 0 0 0 0.25rem $secondary-30;
+      background-color: $neutral-grey-50;
     }
   }
 }

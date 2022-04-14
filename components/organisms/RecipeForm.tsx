@@ -6,51 +6,49 @@ import IngredientInputs from '../molecules/IngredientInputs';
 
 const RecipeForm = () => {
   return (
-    <form>
-      <fieldset>
-        <legend>Recipe Information</legend>
+    <form className="form">
+      <fieldset className="form__fieldset">
+        <legend className="bigger">Recipe Information</legend>
 
         <InputGroup
           inputName='recipe name'
           inputType='text'
           isRequired={true}
-          placeholder='Name'
         />
         
         <InputGroup
-          inputName='recipe description'
+          inputName='recipe description (optional)'
           inputType='text'
           isRequired={false}
-          placeholder='Description (optional)'
         />
 
         <InputGroup
-          inputName='link to recipe'
+          inputName='link to recipe (optional)'
           inputType='url'
           isRequired={false}
-          placeholder='Link (optional)'
         />
 
-        <InputGroup
-          inputName='number of servings'
-          inputType='number'
-          isRequired={false}
-          placeholder='Servings (optional)'
-        />
+        <div className="grid-two-col">
+          <SelectGroup
+            selectName='category'
+            isRequired={true}
+            options={[
+              'Breakfast',
+              'Lunch',
+              'Dinner'
+            ]}
+          />
 
-        <SelectGroup
-          selectName='category'
-          isRequired={true}
-          options={[
-            'Breakfast',
-            'Lunch',
-            'Dinner'
-          ]}
-        />
+          <InputGroup
+            inputName='servings (optional)'
+            inputType='number'
+            isRequired={false}
+          />
+        </div>
       </fieldset>
 
-      <fieldset>
-        <legend>Ingredient Information</legend>
+      <fieldset className="form__fieldset">
+        <legend className="bigger">Ingredient Information</legend>
 
         <IngredientInputs />
 
@@ -60,7 +58,7 @@ const RecipeForm = () => {
         />
       </fieldset>
 
-      <div>
+      <div className="grid-two-col">
         <Button
           buttonType='submit'
           buttonName='save'

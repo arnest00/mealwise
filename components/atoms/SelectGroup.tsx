@@ -5,9 +5,11 @@ type SelectProps = {
 };
 
 const SelectGroup = ({ selectName, isRequired, options }: SelectProps ) => {
+  const labelClasses = isRequired ? "input-group__label" : "input-group__label input-group__label--optional";
+
   return (
     <div className="input-group">
-      <label htmlFor={selectName} className="input-group__label">
+      <label htmlFor={selectName} className={labelClasses}>
         {selectName}
       </label>
 

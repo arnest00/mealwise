@@ -1,4 +1,11 @@
 // Atoms
-@import '../components/atoms/Button';
-@import '../components/atoms/InputGroup';
-@import '../components/atoms/SelectGroup';
+@import "../components/atoms/Button";
+@import "../components/atoms/InputGroup";
+@import "../components/atoms/SelectGroup";
+
+// Molecules
+@import "../components/molecules/Navbar";
+@import "../components/molecules/RecipeCard";
+
+//Organisms
+@import "../components/organisms/RecipeForm";

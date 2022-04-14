@@ -32,3 +32,10 @@
 .text-align-center {
   text-align: center;
 }
+
+// Layout
+.grid-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

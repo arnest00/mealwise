@@ -1,21 +1,21 @@
 type InputProps = {
   inputName: string,
   inputType: 'text' | 'number' | 'url',
-  isRequired: boolean,
-  placeholder?: string
+  isRequired: boolean
 };
 
-const InputGroup = ({ inputName, inputType, isRequired, placeholder }: InputProps ) => {
+const InputGroup = ({ inputName, inputType, isRequired }: InputProps ) => {
+  const labelClasses = isRequired ? "input-group__label" : "input-group__label input-group__label--optional";
+
   return (
     <div className="input-group">
-      <label htmlFor={inputName} className="input-group__label">
+      <label htmlFor={inputName} className={labelClasses}>
         {inputName}
       </label>
       <input
         type={inputType}
         name={inputName}
         required={isRequired}
-        placeholder={placeholder}
         className="input-group__input" />
     </div>
   );

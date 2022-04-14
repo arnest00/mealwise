@@ -10,30 +10,30 @@ const IngredientInputs = () => {
         inputName='ingredient name'
         inputType='text'
         isRequired={true}
-        placeholder='Name'
       />
-      <InputGroup
-        inputName='quantity'
-        inputType='number'
-        isRequired={true}
-        placeholder="1"
-      />
-      <SelectGroup
-        selectName='unit'
-        isRequired={false}
-        options={[
-          '',
-          'teaspoon (t)',
-          'tablespoon (tbsp)',
-          'fluid ounce (fl oz)',
-          'cup (c)',
-          'milliliter (mL)',
-          'liter (L)',
-          'pound (lb)',
-          'ounce (oz)',
-          'gram (g)',
-        ]}
-      />
+      <div className="grid-two-col">
+        <InputGroup
+          inputName='quantity'
+          inputType='number'
+          isRequired={true}
+        />
+        <SelectGroup
+          selectName='unit (optional)'
+          isRequired={false}
+          options={[
+            '',
+            'teaspoon (t)',
+            'tablespoon (tbsp)',
+            'fluid ounce (fl oz)',
+            'cup (c)',
+            'milliliter (mL)',
+            'liter (L)',
+            'pound (lb)',
+            'ounce (oz)',
+            'gram (g)',
+          ]}
+        />
+      </div>
     </Fragment>
   );
 };
