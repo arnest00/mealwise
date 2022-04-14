@@ -7,7 +7,7 @@ type DayContainerProps = {
 const DayContainer = ({ dayName }: DayContainerProps ) => {
   return (
     <section>
-      <h3 className='text-align-center'>{dayName}</h3>
+      <h3 className='bigger text-align-center'>{dayName}</h3>
 
       <Button
         buttonType='button'

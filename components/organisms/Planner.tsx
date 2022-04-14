@@ -8,29 +8,14 @@ type PlannerProps = {
 const Planner = ({ daysOfTheWeek, shoppingDay }: PlannerProps) => {
   const indexOfShoppingDay = daysOfTheWeek.indexOf(shoppingDay);
 
-  const createShoppingWeek = (idx: number) => {
-    const result = new Array(0);
-    const daysOfTheWeekCopy = [...daysOfTheWeek];
-    let dayCounter = 0;
-    
-    while (result.length < 7) {
-      if (dayCounter + idx < 7) {
-        result.push(daysOfTheWeek[dayCounter + idx]);
-        dayCounter = dayCounter + 1;
-      } else {
-        const nextDay = daysOfTheWeekCopy.shift();
-        result.push(nextDay);
-      };
-    };
+  const newShoppingWeekStart = daysOfTheWeek.slice(indexOfShoppingDay);
+  const newShoppingWeekEnd = daysOfTheWeek.slice(0, indexOfShoppingDay + 1);
 
-    return result;
-  };
-
-  const shoppingWeek = createShoppingWeek(indexOfShoppingDay);
+  const shoppingWeek = [...newShoppingWeekStart, ...newShoppingWeekEnd];
 
   return (
     <article>
-      <h2 className='text-align-center'>Shopping Day: {shoppingDay}</h2>
+      <h2 className='section text-align-center'>Shopping Day: {shoppingDay}</h2>
 
       {shoppingWeek.map((day, idx) => (
         <DayContainer

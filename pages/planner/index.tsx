@@ -18,8 +18,7 @@ const PlannerPage: NextPage = () => {
   ];
 
   const handleSelect = (e) => {
-    if (e.target.value !== '') setShoppingDay(e.target.value);
-    else setShoppingDay(null);
+    setShoppingDay(e.target.value);
   };
 
   return (
