@@ -1,5 +1,6 @@
 .nav {
   box-sizing: border-box;
+  border-image: url('/texture-30.png') 9 fill repeat;
   background-color: $primary-30;
   color: $neutral-white;
 
@@ -26,7 +27,7 @@
 
     &:hover,
     &:focus {
-      background-color: $primary-10;
+      border-image: url('/texture-10.png') 9 fill repeat;
     }
   }
 
