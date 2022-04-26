@@ -7,9 +7,7 @@ db.version(1).stores({
   recipes: 'id, name, category, description'
 });
 
-export const addRecipe = async (e: { preventDefault: () => void; currentTarget: any; }) => {
-  e.preventDefault();
-  
+export const addRecipe = async (e: { currentTarget: any; }) => {
   const form = e.currentTarget;
   
   try {
@@ -26,11 +24,19 @@ export const addRecipe = async (e: { preventDefault: () => void; currentTarget: 
     await db.recipes.add(newRecipe);
 
     return {
+      result: 'success',
       message: `Recipe "${newRecipe.name}" added!`,
     }
   } catch (err) {
     return {
+      result: 'error',
       message: 'The recipe could not be added.',
     }
   };
+};
+
+export const getAllRecipes = async () => {
+  const recipes = await db.recipes.toArray();
+
+  return recipes;
 };
