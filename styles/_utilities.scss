@@ -39,3 +39,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
+
+.grid-end-button {
+  display: grid;
+  grid-template-columns: 11fr 1fr;
+  gap: 1rem;
+}

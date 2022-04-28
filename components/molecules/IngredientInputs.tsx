@@ -1,40 +1,26 @@
-import { Fragment } from 'react';
+import { MouseEventHandler } from 'react';
 
 import InputGroup from '../atoms/InputGroup';
-import SelectGroup from '../atoms/SelectGroup';
+import IconButton from '../atoms/IconButton';
 
-const IngredientInputs = () => {
+type IngredientInputsProps = {
+  onClick?: MouseEventHandler,
+}
+
+const IngredientInputs = ({ onClick }: IngredientInputsProps) => {
   return (
-    <Fragment>
+    <div className='grid-end-button'>
       <InputGroup
-        inputName='ingredient name'
+        inputName='ingredient'
         inputType='text'
         isRequired={true}
       />
-      <div className="grid-two-col">
-        <InputGroup
-          inputName='quantity'
-          inputType='number'
-          isRequired={true}
-        />
-        <SelectGroup
-          selectName='unit (optional)'
-          isRequired={false}
-          options={[
-            '',
-            'teaspoon (t)',
-            'tablespoon (tbsp)',
-            'fluid ounce (fl oz)',
-            'cup (c)',
-            'milliliter (mL)',
-            'liter (L)',
-            'pound (lb)',
-            'ounce (oz)',
-            'gram (g)',
-          ]}
-        />
-      </div>
-    </Fragment>
+      
+      <IconButton
+        minus={true}
+        onClick={onClick}
+      />
+    </div>
   );
 };
 

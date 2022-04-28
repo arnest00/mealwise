@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { addRecipe } from '../../services/dbService';
 
 import InputGroup from '../atoms/InputGroup';
@@ -8,7 +8,19 @@ import Button from '../atoms/Button';
 import IngredientInputs from '../molecules/IngredientInputs';
 
 const RecipeForm = () => {
+  const formBottomRef = useRef();
   const [ status, setStatus ] = useState("");
+  const [ ingredientCounter, setIngredientCounter ] = useState(1);
+
+  useEffect(() => {
+    formBottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [ingredientCounter]);
+
+  const handleModifyIngredientCounter = (modifier : number) => {
+    const newIngredientCounter = ingredientCounter + modifier;
+
+    setIngredientCounter(newIngredientCounter);
+  };
 
   const handleSubmit = async (e: { preventDefault: () => void; currentTarget: any; target: any; }) => {
     e.preventDefault();
@@ -66,11 +78,21 @@ const RecipeForm = () => {
       <fieldset className="form__fieldset">
         <legend className="bigger">Ingredient Information</legend>
 
-        <IngredientInputs />
+        <p className='smaller'>
+          Add ingredients by denoting quantity, unit, and type of ingredient. Just the quantity and type of ingredient would also be sufficient. For example, "1 <abbr title='tablespoon'>tbsp</abbr> olive oil" or "3 apples".
+        </p>
+
+        {[...Array(ingredientCounter)].map((_, idx) => (
+          <IngredientInputs
+            key={idx}
+            onClick={() => handleModifyIngredientCounter(-1)}
+          />
+        ))}
 
         <Button
           buttonType='button'
           buttonName='add ingredient'
+          onClick={() => handleModifyIngredientCounter(1)}
         />
       </fieldset>
 
@@ -86,6 +108,8 @@ const RecipeForm = () => {
           modifier='--bad-job'
         />
       </div>
+
+      <div ref={formBottomRef}></div>
     </form>
   );
 };
