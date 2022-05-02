@@ -11,10 +11,12 @@ const RecipeBookCategory = ({ categoryName, categoryRecipes }: RecipeBookCategor
     <section>
       <h2 className="section">{categoryName}</h2>
 
-      {categoryRecipes?.map(({ id, name, description }) => (
+      {categoryRecipes?.map(({ id, name, category, description }) => (
         <RecipeCard
           key={id}
+          id={id}
           name={name}
+          category={category}
           description={description}
         />
       ))}

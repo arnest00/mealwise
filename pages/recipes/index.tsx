@@ -3,24 +3,27 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { getAllRecipes } from '../../services/dbService';
 
+import IRecipe from '../../interfaces/IRecipe';
 import Layout from '../../components/organisms/Layout';
 import RecipeBookCategory from '../../components/organisms/RecipeBookCategory';
 
+interface RecipeBook {
+  breakfast: IRecipe[],
+  lunch: IRecipe[],
+  dinner: IRecipe[],
+}
+
 const RecipesPage: NextPage = () => {
-  const [ recipes, setRecipes ] = useState({
-    breakfast: [],
-    lunch: [],
-    dinner: []
-  });
+  const [ recipes, setRecipes ] = useState<RecipeBook>();
 
   useEffect(() => {
     const getAndSetData = async () => {
       try {
         const allRecipes = await getAllRecipes();
 
-        const breakfastRecipes = allRecipes.filter((recipe) => recipe.category === 'Breakfast');
-        const lunchRecipes = allRecipes.filter((recipe) => recipe.category === 'Lunch');
-        const dinnerRecipes = allRecipes.filter((recipe) => recipe.category === 'Dinner');
+        const breakfastRecipes = allRecipes.filter((recipe: IRecipe) => recipe.category === 'Breakfast');
+        const lunchRecipes = allRecipes.filter((recipe: IRecipe) => recipe.category === 'Lunch');
+        const dinnerRecipes = allRecipes.filter((recipe: IRecipe) => recipe.category === 'Dinner');
 
         const newRecipesState = {
           breakfast: [...breakfastRecipes],
@@ -45,20 +48,24 @@ const RecipesPage: NextPage = () => {
         </li>
       </ul>
 
-      <RecipeBookCategory
-        categoryName='breakfast'
-        categoryRecipes={recipes.breakfast}
-      />
+      {recipes && (
+        <>
+          <RecipeBookCategory
+            categoryName='breakfast'
+            categoryRecipes={recipes.breakfast}
+          />
 
-      <RecipeBookCategory
-        categoryName='lunch'
-        categoryRecipes={recipes.lunch}
-      />
+          <RecipeBookCategory
+            categoryName='lunch'
+            categoryRecipes={recipes.lunch}
+          />
 
-      <RecipeBookCategory
-        categoryName='dinner'
-        categoryRecipes={recipes.dinner}
-      />
+          <RecipeBookCategory
+            categoryName='dinner'
+            categoryRecipes={recipes.dinner}
+          />
+        </>
+      )}
     </Layout>
   );
 };

@@ -4,7 +4,7 @@ import InputGroup from '../atoms/InputGroup';
 import IconButton from '../atoms/IconButton';
 
 type IngredientInputsProps = {
-  onClick?: MouseEventHandler,
+  onClick: MouseEventHandler,
 }
 
 const IngredientInputs = ({ onClick }: IngredientInputsProps) => {
