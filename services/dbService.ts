@@ -3,22 +3,22 @@ import { nanoid } from 'nanoid';
 
 import IRecipe from '../interfaces/IRecipe';
 
-export class mealwiseDexie extends Dexie {
+export class MealwiseDexie extends Dexie {
   recipes!: Table<IRecipe>;
 
   constructor() {
     super('mealwiseDB');
     this.version(1).stores({
-      recipes: 'id, name, category, description'
+      recipes: 'id, name, category, description',
     });
-  };
-};
+  }
+}
 
-export const db = new mealwiseDexie();
+export const db = new MealwiseDexie();
 
 export const addRecipe = async (e: { currentTarget: any; }) => {
   const form = e.currentTarget;
-  
+
   try {
     const formData = new FormData(form);
     const formDataObject = Object.fromEntries(formData.entries());
@@ -27,7 +27,7 @@ export const addRecipe = async (e: { currentTarget: any; }) => {
       id: nanoid(),
       name: formDataObject['recipe name'].toString(),
       description: formDataObject['recipe description (optional)'].toString(),
-      category: formDataObject['category'].toString(),
+      category: formDataObject.category.toString(),
       ingredients: [],
     };
 
@@ -36,13 +36,13 @@ export const addRecipe = async (e: { currentTarget: any; }) => {
     return {
       result: 'success',
       message: `Recipe "${newRecipe.name}" added!`,
-    }
+    };
   } catch (err) {
     return {
       result: 'error',
       message: 'The recipe could not be added.',
-    }
-  };
+    };
+  }
 };
 
 export const getAllRecipes = async () => {

@@ -14,7 +14,7 @@ interface RecipeBook {
 }
 
 const RecipesPage: NextPage = () => {
-  const [ recipes, setRecipes ] = useState<RecipeBook>();
+  const [recipes, setRecipes] = useState<RecipeBook>();
 
   useEffect(() => {
     const getAndSetData = async () => {
@@ -30,9 +30,15 @@ const RecipesPage: NextPage = () => {
           lunch: [...lunchRecipes],
           dinner: [...dinnerRecipes],
         };
-        
+
         setRecipes(newRecipesState);
-      } catch (err) {};
+      } catch (err) {
+        setRecipes({
+          breakfast: [],
+          lunch: [],
+          dinner: [],
+        });
+      }
     };
 
     getAndSetData();
@@ -51,17 +57,17 @@ const RecipesPage: NextPage = () => {
       {recipes && (
         <>
           <RecipeBookCategory
-            categoryName='breakfast'
+            categoryName="breakfast"
             categoryRecipes={recipes.breakfast}
           />
 
           <RecipeBookCategory
-            categoryName='lunch'
+            categoryName="lunch"
             categoryRecipes={recipes.lunch}
           />
 
           <RecipeBookCategory
-            categoryName='dinner'
+            categoryName="dinner"
             categoryRecipes={recipes.dinner}
           />
         </>

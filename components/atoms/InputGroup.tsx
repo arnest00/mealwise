@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler } from 'react';
 
 type InputProps = {
   inputName: string,
@@ -8,8 +8,14 @@ type InputProps = {
   onChange?: ChangeEventHandler
 };
 
-const InputGroup = ({ inputName, inputType, isRequired, value, onChange }: InputProps ) => {
-  const labelClasses = isRequired ? "input-group__label" : "input-group__label input-group__label--optional";
+const InputGroup = ({
+  inputName,
+  inputType,
+  isRequired,
+  value,
+  onChange,
+}: InputProps) => {
+  const labelClasses = isRequired ? 'input-group__label' : 'input-group__label input-group__label--optional';
 
   return (
     <div className="input-group">
@@ -22,9 +28,15 @@ const InputGroup = ({ inputName, inputType, isRequired, value, onChange }: Input
         required={isRequired}
         value={value}
         onChange={onChange}
-        className="input-group__input" />
+        className="input-group__input"
+      />
     </div>
   );
+};
+
+InputGroup.defaultProps = {
+  value: '',
+  onChange: null,
 };
 
 export default InputGroup;

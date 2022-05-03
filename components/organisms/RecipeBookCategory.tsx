@@ -6,22 +6,27 @@ type RecipeBookCategoryProps = {
   categoryRecipes?: IRecipe[]
 };
 
-const RecipeBookCategory = ({ categoryName, categoryRecipes }: RecipeBookCategoryProps ) => {
-  return (
-    <section>
-      <h2 className="section">{categoryName}</h2>
+const RecipeBookCategory = ({ categoryName, categoryRecipes }: RecipeBookCategoryProps) => (
+  <section>
+    <h2 className="section">{categoryName}</h2>
 
-      {categoryRecipes?.map(({ id, name, category, description }) => (
-        <RecipeCard
-          key={id}
-          id={id}
-          name={name}
-          category={category}
-          description={description}
-        />
-      ))}
-    </section>
-  );
+    {categoryRecipes?.map(({
+      id, name, category, description,
+    }) => (
+      <RecipeCard
+        key={id}
+        id={id}
+        name={name}
+        category={category}
+        description={description}
+        ingredients={[]}
+      />
+    ))}
+  </section>
+);
+
+RecipeBookCategory.defaultProps = {
+  categoryRecipes: [],
 };
 
 export default RecipeBookCategory;

@@ -4,17 +4,15 @@ type DayContainerProps = {
   dayName: string
 };
 
-const DayContainer = ({ dayName }: DayContainerProps ) => {
-  return (
-    <section>
-      <h3 className='bigger text-align-center'>{dayName}</h3>
+const DayContainer = ({ dayName }: DayContainerProps) => (
+  <section>
+    <h3 className="bigger text-align-center">{dayName}</h3>
 
-      <Button
-        buttonType='button'
-        buttonName='add meal'
-      />
-    </section>
-  );
-};
+    <Button
+      buttonType="button"
+      buttonName="add meal"
+    />
+  </section>
+);
 
 export default DayContainer;

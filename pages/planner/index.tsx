@@ -5,7 +5,7 @@ import Layout from '../../components/organisms/Layout';
 import Planner from '../../components/organisms/Planner';
 
 const PlannerPage: NextPage = () => {
-  const [ shoppingDay, setShoppingDay ] = useState(null);
+  const [shoppingDay, setShoppingDay] = useState(null);
 
   const DAYS_OF_THE_WEEK = [
     'Sunday',
@@ -23,25 +23,30 @@ const PlannerPage: NextPage = () => {
 
   return (
     <Layout>
-      <h1 className='title text-align-center'>Meal Plan</h1>
+      <h1 className="title text-align-center">Meal Plan</h1>
 
       <div>
-        <label htmlFor='shoppingDay'>Select the day of the week when you go shopping:</label>
+        <label htmlFor="shoppingDay">
+          Select the day of the week when you go shopping:
 
-        <select
-          name='shoppingDay'
-          onChange={handleSelect}>
-          <option value=''></option>
-          {DAYS_OF_THE_WEEK.map((day, idx) => (
-            <option key={idx} value={day}>{day}</option>
-          ))}
-        </select>
+          <select
+            name="shoppingDay"
+            onChange={handleSelect}
+          >
+            <option aria-label="none" value="" />
+            {DAYS_OF_THE_WEEK.map((day) => (
+              <option key={day} value={day}>{day}</option>
+            ))}
+          </select>
+        </label>
       </div>
 
-      {shoppingDay && <Planner
-        daysOfTheWeek={DAYS_OF_THE_WEEK}
-        shoppingDay={shoppingDay}
-      />}
+      {shoppingDay && (
+        <Planner
+          daysOfTheWeek={DAYS_OF_THE_WEEK}
+          shoppingDay={shoppingDay}
+        />
+      )}
     </Layout>
   );
 };

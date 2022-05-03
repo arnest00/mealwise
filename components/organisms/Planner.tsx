@@ -15,11 +15,15 @@ const Planner = ({ daysOfTheWeek, shoppingDay }: PlannerProps) => {
 
   return (
     <article>
-      <h2 className='section text-align-center'>Shopping Day: {shoppingDay}</h2>
+      <h2 className="section text-align-center">
+        Shopping Day:
+        {' '}
+        {shoppingDay}
+      </h2>
 
-      {shoppingWeek.map((day, idx) => (
+      {shoppingWeek.map((day) => (
         <DayContainer
-          key={idx}
+          key={day}
           dayName={day}
         />
       ))}

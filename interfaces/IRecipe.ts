@@ -1,4 +1,4 @@
-import IIngredient from "./IIngredient";
+import IIngredient from './IIngredient';
 
 export default interface IRecipe {
   id: string,
@@ -8,4 +8,4 @@ export default interface IRecipe {
   category: string,
   servings?: number,
   ingredients: IIngredient[],
-};
+}
