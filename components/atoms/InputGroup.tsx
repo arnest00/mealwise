@@ -4,16 +4,16 @@ type InputProps = {
   inputName: string,
   inputType: 'text' | 'number' | 'url',
   isRequired: boolean,
-  value?: string,
-  onChange?: ChangeEventHandler
+  onChange: ChangeEventHandler,
+  value?: string | number,
 };
 
 const InputGroup = ({
   inputName,
   inputType,
   isRequired,
-  value,
   onChange,
+  value,
 }: InputProps) => {
   const labelClasses = isRequired ? 'input-group__label' : 'input-group__label input-group__label--optional';
 
@@ -21,13 +21,14 @@ const InputGroup = ({
     <div className="input-group">
       <label htmlFor={inputName} className={labelClasses}>
         {inputName}
+        {!isRequired && ' (optional)'}
       </label>
       <input
         type={inputType}
         name={inputName}
         required={isRequired}
-        value={value}
         onChange={onChange}
+        value={value}
         className="input-group__input"
       />
     </div>
@@ -36,7 +37,6 @@ const InputGroup = ({
 
 InputGroup.defaultProps = {
   value: '',
-  onChange: null,
 };
 
 export default InputGroup;

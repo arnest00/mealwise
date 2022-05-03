@@ -1,7 +1,9 @@
 import Dexie, { Table } from 'dexie';
 import { nanoid } from 'nanoid';
 
+import IFormData from '../interfaces/IFormData';
 import IRecipe from '../interfaces/IRecipe';
+import IIngredient from '../interfaces/IIngredient';
 
 export class MealwiseDexie extends Dexie {
   recipes!: Table<IRecipe>;
@@ -16,19 +18,16 @@ export class MealwiseDexie extends Dexie {
 
 export const db = new MealwiseDexie();
 
-export const addRecipe = async (e: { currentTarget: any; }) => {
-  const form = e.currentTarget;
-
+export const addRecipe = async (formData: IFormData, ingredientsList: IIngredient[]) => {
   try {
-    const formData = new FormData(form);
-    const formDataObject = Object.fromEntries(formData.entries());
-
     const newRecipe = {
       id: nanoid(),
-      name: formDataObject['recipe name'].toString(),
-      description: formDataObject['recipe description (optional)'].toString(),
-      category: formDataObject.category.toString(),
-      ingredients: [],
+      name: formData.name,
+      description: formData.description,
+      link: formData.link,
+      category: formData.category,
+      servings: formData.servings,
+      ingredients: [...ingredientsList],
     };
 
     await db.recipes.add(newRecipe);

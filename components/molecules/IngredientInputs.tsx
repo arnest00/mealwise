@@ -1,11 +1,11 @@
 import { ChangeEventHandler, MouseEventHandler } from 'react';
 
-import InputGroup from '../atoms/InputGroup';
 import IconButton from '../atoms/IconButton';
+import InputGroup from '../atoms/InputGroup';
 
 type IngredientInputsProps = {
   onClick: MouseEventHandler,
-  onChange?: ChangeEventHandler,
+  onChange: ChangeEventHandler,
   value: string,
 };
 
@@ -15,8 +15,8 @@ const IngredientInputs = ({ onClick, onChange, value }: IngredientInputsProps) =
       inputName="ingredient"
       inputType="text"
       isRequired
-      value={value}
       onChange={onChange}
+      value={value}
     />
 
     <IconButton
@@ -25,9 +25,5 @@ const IngredientInputs = ({ onClick, onChange, value }: IngredientInputsProps) =
     />
   </div>
 );
-
-IngredientInputs.defaultProps = {
-  onChange: null,
-};
 
 export default IngredientInputs;

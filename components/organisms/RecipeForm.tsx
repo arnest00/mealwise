@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react';
 import { nanoid } from 'nanoid';
+import IFormData from '../../interfaces/IFormData';
 import { addRecipe } from '../../services/dbService';
 
 import InputGroup from '../atoms/InputGroup';
@@ -17,6 +18,13 @@ const RecipeForm = () => {
   const formBottomRef = useRef<null | HTMLDivElement>(null);
 
   const [status, setStatus] = useState('');
+  const [formData, setFormData] = useState<IFormData>({
+    name: '',
+    description: '',
+    link: '',
+    category: 'Breakfast',
+    servings: 1,
+  });
   const [ingredientsList, setIngredientsList] = useState([
     {
       id: nanoid(),
@@ -27,6 +35,41 @@ const RecipeForm = () => {
   useEffect(() => {
     formBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [ingredientsList]);
+
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newFormData = { ...formData };
+    newFormData.name = e.currentTarget.value;
+
+    setFormData(newFormData);
+  };
+
+  const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newFormData = { ...formData };
+    newFormData.description = e.currentTarget.value;
+
+    setFormData(newFormData);
+  };
+
+  const handleLinkChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newFormData = { ...formData };
+    newFormData.link = e.currentTarget.value;
+
+    setFormData(newFormData);
+  };
+
+  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newFormData = { ...formData };
+    newFormData.category = e.currentTarget.value;
+
+    setFormData(newFormData);
+  };
+
+  const handleServingsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newFormData = { ...formData };
+    newFormData.servings = Number(e.currentTarget.value);
+
+    setFormData(newFormData);
+  };
 
   const handleAddIngredient = () => {
     const newIngredientsList = [...ingredientsList];
@@ -46,7 +89,7 @@ const RecipeForm = () => {
     setIngredientsList(newIngredientsList);
   };
 
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>, id: string) => {
+  const handleIngredientChange = (e: ChangeEvent<HTMLInputElement>, id: string) => {
     const newIngredientsList = [...ingredientsList];
     const changedIngredientIdx = ingredientsList
       .findIndex((ingredient) => ingredient.id === id);
@@ -61,9 +104,25 @@ const RecipeForm = () => {
   ) => {
     e.preventDefault();
 
-    const { result, message } = await addRecipe(e);
+    const { result, message } = await addRecipe(formData, ingredientsList);
 
-    if (result !== 'error') e.target.reset();
+    if (result !== 'error') {
+      e.target.reset();
+      setFormData({
+        name: '',
+        description: '',
+        link: '',
+        category: 'Breakfast',
+        servings: 1,
+      });
+      setIngredientsList([
+        {
+          id: nanoid(),
+          content: '',
+        },
+      ]);
+    }
+
     setStatus(message);
   };
 
@@ -75,27 +134,35 @@ const RecipeForm = () => {
         <legend className="bigger">Recipe Information</legend>
 
         <InputGroup
-          inputName="recipe name"
+          inputName="name"
           inputType="text"
           isRequired
+          onChange={handleNameChange}
+          value={formData.name}
         />
 
         <InputGroup
-          inputName="recipe description (optional)"
+          inputName="description"
           inputType="text"
           isRequired={false}
+          onChange={handleDescriptionChange}
+          value={formData.description}
         />
 
         <InputGroup
-          inputName="link to recipe (optional)"
+          inputName="link"
           inputType="url"
           isRequired={false}
+          onChange={handleLinkChange}
+          value={formData.link}
         />
 
         <div className="grid-two-col">
           <SelectGroup
             selectName="category"
             isRequired
+            onChange={handleCategoryChange}
+            value={formData.category}
             options={[
               'Breakfast',
               'Lunch',
@@ -104,9 +171,11 @@ const RecipeForm = () => {
           />
 
           <InputGroup
-            inputName="servings (optional)"
+            inputName="servings"
             inputType="number"
             isRequired={false}
+            onChange={handleServingsChange}
+            value={formData.servings}
           />
         </div>
       </fieldset>
@@ -130,7 +199,7 @@ const RecipeForm = () => {
           <IngredientInputs
             key={id}
             onClick={() => handleRemoveIngredient(id)}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e, id)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleIngredientChange(e, id)}
             value={content}
           />
         ))}
