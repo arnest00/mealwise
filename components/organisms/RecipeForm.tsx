@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { nanoid } from 'nanoid';
 import { addRecipe } from '../../services/dbService';
 
 import InputGroup from '../atoms/InputGroup';
@@ -8,18 +9,46 @@ import Button from '../atoms/Button';
 import IngredientInputs from '../molecules/IngredientInputs';
 
 const RecipeForm = () => {
-  const formBottomRef = useRef();
+  const formBottomRef = useRef<null | HTMLDivElement>(null);
+
   const [ status, setStatus ] = useState("");
-  const [ ingredientCounter, setIngredientCounter ] = useState(1);
+  const [ ingredientsList, setIngredientsList ] = useState([
+    {
+      id: nanoid(),
+      content: '',
+    },
+  ]);
 
   useEffect(() => {
     formBottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [ingredientCounter]);
+  }, [ingredientsList]);
 
-  const handleModifyIngredientCounter = (modifier : number) => {
-    const newIngredientCounter = ingredientCounter + modifier;
+  const handleAddIngredient = () => {
+    const newIngredientsList = [...ingredientsList];
+    
+    newIngredientsList.push({
+      id: nanoid(),
+      content: '',
+    });
+    
+    setIngredientsList(newIngredientsList);
+  };
 
-    setIngredientCounter(newIngredientCounter);
+  const handleRemoveIngredient = (id: string) => {
+    const newIngredientsList = [...ingredientsList]
+      .filter(ingredient => ingredient.id !== id);
+
+    setIngredientsList(newIngredientsList);
+  };
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>, id: string) => {
+    const newIngredientsList = [...ingredientsList];
+    const changedIngredientIdx = ingredientsList
+      .findIndex(ingredient => ingredient.id === id);
+
+    newIngredientsList[changedIngredientIdx].content = e.currentTarget.value;
+
+    setIngredientsList(newIngredientsList);
   };
 
   const handleSubmit = async (e: { preventDefault: () => void; currentTarget: any; target: any; }) => {
@@ -82,17 +111,19 @@ const RecipeForm = () => {
           Add ingredients by denoting quantity, unit, and type of ingredient. Just the quantity and type of ingredient would also be sufficient. For example, "1 <abbr title='tablespoon'>tbsp</abbr> olive oil" or "3 apples".
         </p>
 
-        {[...Array(ingredientCounter)].map((_, idx) => (
+        {ingredientsList.map(({ id, content }) => (
           <IngredientInputs
-            key={idx}
-            onClick={() => handleModifyIngredientCounter(-1)}
+            key={id}
+            onClick={() => handleRemoveIngredient(id)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e, id)}
+            value={content}
           />
         ))}
 
         <Button
           buttonType='button'
           buttonName='add ingredient'
-          onClick={() => handleModifyIngredientCounter(1)}
+          onClick={handleAddIngredient}
         />
       </fieldset>
 
