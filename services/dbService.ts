@@ -49,3 +49,12 @@ export const getAllRecipes = async () => {
 
   return recipes;
 };
+
+export const getRecipeById = async (id: string) => {
+  const recipe = await db.recipes
+    .where('id')
+    .equals(id)
+    .toArray();
+
+  return recipe[0];
+};
