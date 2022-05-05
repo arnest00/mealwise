@@ -19,21 +19,16 @@ const RecipeView: NextPage = () => {
       try {
         const fetchedRecipe = await getRecipeById(recipeId);
 
-        setRecipe(fetchedRecipe);
+        if (!fetchedRecipe) return await router.replace('/404');
+
+        return setRecipe(fetchedRecipe);
       } catch (err) {
-        setRecipe({
-          id,
-          name: '',
-          description: '',
-          link: '',
-          category: '',
-          ingredients: [],
-        });
+        return await router.replace('/404');
       }
     };
 
     getAndSetData(id);
-  }, [id]);
+  }, [id, router]);
 
   return (
     <Layout>
