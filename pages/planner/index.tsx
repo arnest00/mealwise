@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 
 import Layout from '../../components/organisms/Layout';
 import Planner from '../../components/organisms/Planner';
 
+import { addShoppingDay, getShoppingDay } from '../../services/dbService';
+
 const PlannerPage: NextPage = () => {
-  const [shoppingDay, setShoppingDay] = useState(null);
+  const [shoppingDay, setShoppingDay] = useState('');
 
   const DAYS_OF_THE_WEEK = [
     'Sunday',
@@ -18,8 +20,20 @@ const PlannerPage: NextPage = () => {
   ];
 
   const handleSelect = (e: { target: any }) => {
+    addShoppingDay(e.target.value);
+
     setShoppingDay(e.target.value);
   };
+
+  useEffect(() => {
+    const getAndSetData = async () => {
+      const savedShoppingDay = await getShoppingDay();
+
+      setShoppingDay(savedShoppingDay);
+    };
+
+    getAndSetData();
+  }, [shoppingDay]);
 
   return (
     <Layout>
@@ -32,10 +46,13 @@ const PlannerPage: NextPage = () => {
           <select
             name="shoppingDay"
             onChange={handleSelect}
+            value={shoppingDay}
           >
             <option aria-label="none" value="" />
             {DAYS_OF_THE_WEEK.map((day) => (
-              <option key={day} value={day}>{day}</option>
+              <option key={day} value={day}>
+                {day}
+              </option>
             ))}
           </select>
         </label>

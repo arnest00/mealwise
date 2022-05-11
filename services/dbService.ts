@@ -8,16 +8,20 @@ import IIngredient from '../interfaces/IIngredient';
 export class MealwiseDexie extends Dexie {
   recipes!: Table<IRecipe>;
 
+  shoppingDay!: Table;
+
   constructor() {
     super('mealwiseDB');
     this.version(1).stores({
-      recipes: 'id, name, category, description',
+      recipes: 'id, name, category',
+      shoppingDay: 'id, day',
     });
   }
 }
 
 export const db = new MealwiseDexie();
 
+// recipes
 export const addRecipe = async (formData: IFormData, ingredientsList: IIngredient[]) => {
   try {
     const newRecipe = {
@@ -57,4 +61,27 @@ export const getRecipeById = async (id: string) => {
     .toArray();
 
   return recipe[0];
+};
+
+// shoppingDay
+export const addShoppingDay = async (day: string) => {
+  const previousDay = db.shoppingDay
+    .where('id')
+    .equals(1);
+
+  if (previousDay) await db.shoppingDay.delete(1);
+
+  await db.shoppingDay
+    .add({ id: 1, day });
+};
+
+export const getShoppingDay = async () => {
+  const chosenDay = await db.shoppingDay
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  if (!chosenDay[0]) return '';
+
+  return chosenDay[0].day;
 };

@@ -11,7 +11,9 @@ const Planner = ({ daysOfTheWeek, shoppingDay }: PlannerProps) => {
   const newShoppingWeekStart = daysOfTheWeek.slice(indexOfShoppingDay);
   const newShoppingWeekEnd = daysOfTheWeek.slice(0, indexOfShoppingDay + 1);
 
-  const shoppingWeek = [...newShoppingWeekStart, ...newShoppingWeekEnd];
+  const shoppingWeek = [...newShoppingWeekStart, ...newShoppingWeekEnd].map((day, idx) => (
+    { id: idx, name: day }
+  ));
 
   return (
     <article>
@@ -23,8 +25,8 @@ const Planner = ({ daysOfTheWeek, shoppingDay }: PlannerProps) => {
 
       {shoppingWeek.map((day) => (
         <DayContainer
-          key={day}
-          dayName={day}
+          key={day.id}
+          dayName={day.name}
         />
       ))}
     </article>
