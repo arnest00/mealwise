@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import Layout from '../../components/organisms/Layout';
 import Planner from '../../components/organisms/Planner';
 
-import { addShoppingDay, getShoppingDay } from '../../services/dbService';
+import { selectShoppingDay, getShoppingDay, createMealPlan } from '../../services/dbService';
 
 const PlannerPage: NextPage = () => {
   const [shoppingDay, setShoppingDay] = useState('');
@@ -20,7 +20,8 @@ const PlannerPage: NextPage = () => {
   ];
 
   const handleSelect = (e: { target: any }) => {
-    addShoppingDay(e.target.value);
+    selectShoppingDay(e.target.value);
+    createMealPlan();
 
     setShoppingDay(e.target.value);
   };

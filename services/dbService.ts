@@ -2,19 +2,23 @@ import Dexie, { Table } from 'dexie';
 import { nanoid } from 'nanoid';
 
 import IFormData from '../interfaces/IFormData';
-import IRecipe from '../interfaces/IRecipe';
 import IIngredient from '../interfaces/IIngredient';
+import IMealPlan from '../interfaces/IMealPlan';
+import IRecipe from '../interfaces/IRecipe';
 
 export class MealwiseDexie extends Dexie {
   recipes!: Table<IRecipe>;
 
   shoppingDay!: Table;
 
+  mealPlan!:Table<IMealPlan>;
+
   constructor() {
     super('mealwiseDB');
     this.version(1).stores({
-      recipes: 'id, name, category',
-      shoppingDay: 'id, day',
+      recipes: 'id',
+      shoppingDay: 'id',
+      mealPlan: 'id',
     });
   }
 }
@@ -64,7 +68,7 @@ export const getRecipeById = async (id: string) => {
 };
 
 // shoppingDay
-export const addShoppingDay = async (day: string) => {
+export const selectShoppingDay = async (day: string) => {
   const previousDay = db.shoppingDay
     .where('id')
     .equals(1);
@@ -84,4 +88,28 @@ export const getShoppingDay = async () => {
   if (!chosenDay[0]) return '';
 
   return chosenDay[0].day;
+};
+
+// mealPlan
+export const createMealPlan = async () => {
+  const previousMealPlan = await db.mealPlan
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  if (!previousMealPlan[0]) {
+    await db.mealPlan.add({
+      id: 1,
+      meals: {
+        1: [],
+        2: [],
+        3: [],
+        4: [],
+        5: [],
+        6: [],
+        7: [],
+        8: [],
+      },
+    });
+  }
 };
