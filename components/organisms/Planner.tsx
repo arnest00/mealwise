@@ -26,6 +26,7 @@ const Planner = ({ daysOfTheWeek, shoppingDay }: PlannerProps) => {
       {shoppingWeek.map((day) => (
         <DayContainer
           key={day.id}
+          dayId={day.id}
           dayName={day.name}
         />
       ))}

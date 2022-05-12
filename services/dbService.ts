@@ -101,6 +101,7 @@ export const createMealPlan = async () => {
     await db.mealPlan.add({
       id: 1,
       meals: {
+        0: [],
         1: [],
         2: [],
         3: [],
@@ -108,8 +109,39 @@ export const createMealPlan = async () => {
         5: [],
         6: [],
         7: [],
-        8: [],
       },
     });
   }
+};
+
+export const addMealToPlan = async (dayId: string | string[] | undefined, mealId: string) => {
+  const dayIdAsNum = Number(dayId);
+  const currentMealPlan = await db.mealPlan
+    .where('id')
+    .equals(1)
+    .toArray();
+  const newMealPlan = { ...currentMealPlan[0].meals };
+  const currentDayMeals = newMealPlan[dayIdAsNum];
+  const chosenMeal = await getRecipeById(mealId);
+
+  currentDayMeals.push({
+    id: nanoid(),
+    recipeId: chosenMeal.id,
+  });
+
+  await db.mealPlan.update(1, {
+    id: 1,
+    meals: newMealPlan,
+  });
+};
+
+export const getMeals = async (dayId: string | string[] | undefined) => {
+  const dayIdAsNum = Number(dayId);
+  const mealPlan = await db.mealPlan
+    .where('id')
+    .equals(1)
+    .toArray();
+  const dayMeals = mealPlan[0].meals[dayIdAsNum];
+
+  return dayMeals;
 };

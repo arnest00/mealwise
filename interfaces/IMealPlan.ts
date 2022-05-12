@@ -1,6 +1,6 @@
 export default interface IMealPlan {
   id: number,
   meals: {
-    [key: string | number]: { recipeId: string }[] | [],
+    [key: string | number]: { id: string, recipeId: string }[],
   }
 }
