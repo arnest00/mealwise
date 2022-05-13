@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { getAllRecipes } from '../../services/dbService';
 
 import IRecipe from '../../interfaces/IRecipe';
+import IRecipeBook from '../../interfaces/IRecipeBook';
+import { getAllRecipes } from '../../services/dbService';
+
 import Layout from '../../components/organisms/Layout';
 import RecipeBookCategory from '../../components/organisms/RecipeBookCategory';
 
-interface RecipeBook {
-  breakfast: IRecipe[],
-  lunch: IRecipe[],
-  dinner: IRecipe[],
-}
-
 const RecipesPage: NextPage = () => {
-  const [recipes, setRecipes] = useState<RecipeBook>();
+  const [recipes, setRecipes] = useState<IRecipeBook>();
 
   useEffect(() => {
     const getAndSetData = async () => {

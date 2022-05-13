@@ -4,10 +4,20 @@ import { NextPage } from 'next';
 import Layout from '../../components/organisms/Layout';
 import Planner from '../../components/organisms/Planner';
 
-import { selectShoppingDay, getShoppingDay, createMealPlan } from '../../services/dbService';
+import {
+  selectShoppingDay,
+  getShoppingDay,
+  createMealPlan,
+  getAllPlannedMeals,
+} from '../../services/dbService';
+
+type MealPlan = {
+  [key: number]: { id: string, recipeId: string, recipeName: string }[]
+};
 
 const PlannerPage: NextPage = () => {
   const [shoppingDay, setShoppingDay] = useState('');
+  const [plannedMeals, setPlannedMeals] = useState<MealPlan>();
 
   const DAYS_OF_THE_WEEK = [
     'Sunday',
@@ -27,14 +37,34 @@ const PlannerPage: NextPage = () => {
   };
 
   useEffect(() => {
-    const getAndSetData = async () => {
+    const getAndSetShoppingDay = async () => {
       const savedShoppingDay = await getShoppingDay();
 
       setShoppingDay(savedShoppingDay);
     };
 
-    getAndSetData();
-  }, [shoppingDay]);
+    const getAndSetPlannedMeals = async () => {
+      try {
+        const currentPlannedMeals = await getAllPlannedMeals();
+
+        setPlannedMeals(currentPlannedMeals);
+      } catch (err) {
+        setPlannedMeals({
+          0: [],
+          1: [],
+          2: [],
+          3: [],
+          4: [],
+          5: [],
+          6: [],
+          7: [],
+        });
+      }
+    };
+
+    getAndSetShoppingDay();
+    getAndSetPlannedMeals();
+  }, [shoppingDay, plannedMeals]);
 
   return (
     <Layout>
@@ -63,6 +93,7 @@ const PlannerPage: NextPage = () => {
         <Planner
           daysOfTheWeek={DAYS_OF_THE_WEEK}
           shoppingDay={shoppingDay}
+          plannedMeals={plannedMeals}
         />
       )}
     </Layout>

@@ -67,6 +67,15 @@ export const getRecipeById = async (id: string) => {
   return recipe[0];
 };
 
+export const getRecipeNameById = async (id: string) => {
+  const recipe = await db.recipes
+    .where('id')
+    .equals(id)
+    .toArray();
+
+  return recipe[0].name;
+};
+
 // shoppingDay
 export const selectShoppingDay = async (day: string) => {
   const previousDay = db.shoppingDay
@@ -135,13 +144,23 @@ export const addMealToPlan = async (dayId: string | string[] | undefined, mealId
   });
 };
 
-export const getMeals = async (dayId: string | string[] | undefined) => {
-  const dayIdAsNum = Number(dayId);
+export const getAllPlannedMeals = async () => {
   const mealPlan = await db.mealPlan
     .where('id')
     .equals(1)
     .toArray();
-  const dayMeals = mealPlan[0].meals[dayIdAsNum];
+  const mealPlanMeals = mealPlan[0].meals;
+  const plannedMealsPerDay = Object.values(mealPlanMeals);
 
-  return dayMeals;
+  const plannedMealsPerDayWithName = await Promise.all(plannedMealsPerDay.map(async (dayMeals) => {
+    const dayMealsWithName = await Promise.all(dayMeals.map(async (plannedMeal) => {
+      const recipeName = await getRecipeNameById(plannedMeal.recipeId);
+
+      return { id: plannedMeal.id, recipeId: plannedMeal.recipeId, recipeName };
+    }));
+
+    return dayMealsWithName;
+  }));
+
+  return { ...plannedMealsPerDayWithName };
 };

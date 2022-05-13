@@ -2,10 +2,13 @@ import DayContainer from '../molecules/DayContainer';
 
 type PlannerProps = {
   daysOfTheWeek: string[],
-  shoppingDay: string
+  shoppingDay: string,
+  plannedMeals: {
+    [key: string | number]: { id: string, recipeId: string, recipeName: string }[]
+  } | undefined
 };
 
-const Planner = ({ daysOfTheWeek, shoppingDay }: PlannerProps) => {
+const Planner = ({ daysOfTheWeek, shoppingDay, plannedMeals }: PlannerProps) => {
   const indexOfShoppingDay = daysOfTheWeek.indexOf(shoppingDay);
 
   const newShoppingWeekStart = daysOfTheWeek.slice(indexOfShoppingDay);
@@ -23,13 +26,18 @@ const Planner = ({ daysOfTheWeek, shoppingDay }: PlannerProps) => {
         {shoppingDay}
       </h2>
 
-      {shoppingWeek.map((day) => (
-        <DayContainer
-          key={day.id}
-          dayId={day.id}
-          dayName={day.name}
-        />
-      ))}
+      {shoppingWeek.map((day, idx) => {
+        const idxString = idx.toString();
+
+        return (
+          <DayContainer
+            key={day.id}
+            dayId={day.id}
+            dayName={day.name}
+            dayMeals={plannedMeals ? plannedMeals[idxString] : []}
+          />
+        );
+      })}
     </article>
   );
 };

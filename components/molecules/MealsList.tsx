@@ -9,10 +9,11 @@ import IconButton from '../atoms/IconButton';
 
 type MealsListProps = {
   dayId: string | string[] | undefined,
+  categoryName: string,
   meals: IRecipe[],
 };
 
-const MealsList = ({ dayId, meals }: MealsListProps) => {
+const MealsList = ({ dayId, categoryName, meals }: MealsListProps) => {
   const router = useRouter();
 
   const handleClick = async (id: string | string[] | undefined, mealId: string) => {
@@ -22,7 +23,9 @@ const MealsList = ({ dayId, meals }: MealsListProps) => {
   };
 
   return (
-    <>
+    <section>
+      <h2 className="section">{categoryName}</h2>
+
       {meals.map((meal) => (
         <div key={meal.id} className="grid-end-button">
           <Link href={`/recipes/${meal.id}`}>
@@ -35,7 +38,7 @@ const MealsList = ({ dayId, meals }: MealsListProps) => {
           />
         </div>
       ))}
-    </>
+    </section>
   );
 };
 
