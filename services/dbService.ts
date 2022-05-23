@@ -5,6 +5,7 @@ import IFormData from '../interfaces/IFormData';
 import IIngredient from '../interfaces/IIngredient';
 import IMealPlan from '../interfaces/IMealPlan';
 import IRecipe from '../interfaces/IRecipe';
+import IShoppingList from '../interfaces/IShoppingList';
 
 export class MealwiseDexie extends Dexie {
   recipes!: Table<IRecipe>;
@@ -13,12 +14,15 @@ export class MealwiseDexie extends Dexie {
 
   mealPlan!:Table<IMealPlan>;
 
+  shoppingList!: Table<IShoppingList>;
+
   constructor() {
     super('mealwiseDB');
     this.version(1).stores({
       recipes: 'id',
       shoppingDay: 'id',
       mealPlan: 'id',
+      shoppingList: 'id',
     });
   }
 }
@@ -74,6 +78,19 @@ export const getRecipeNameById = async (id: string) => {
     .toArray();
 
   return recipe[0].name;
+};
+
+export const getRecipeIngredientsById = async (id: string) => {
+  const recipe = await db.recipes
+    .where('id')
+    .equals(id)
+    .toArray();
+
+  const recipeIngredientsIds = recipe[0].ingredients.map((ingredient) => (
+    { id: nanoid(), itemName: ingredient.content }
+  ));
+
+  return recipeIngredientsIds;
 };
 
 // shoppingDay
@@ -163,4 +180,42 @@ export const getAllPlannedMeals = async () => {
   }));
 
   return { ...plannedMealsPerDayWithName };
+};
+
+// shoppingList
+export const createShoppingList = async (plannedMeals: {
+  [key: number]: { id: string, recipeId: string, recipeName: string }[]
+}) => {
+  const previousShoppingList = db.shoppingList
+    .where('id')
+    .equals(1);
+  if (previousShoppingList) await db.shoppingList.delete(1);
+  const plannedMealsPerDay = Object.values(plannedMeals);
+
+  const plannedMealsIngredients = await Promise.all(plannedMealsPerDay.map(async (dayMeals) => {
+    const dayMealsIngredients = await Promise.all(dayMeals.map(async (plannedMeal) => {
+      const recipeIngredients = await getRecipeIngredientsById(plannedMeal.recipeId);
+
+      return recipeIngredients;
+    }));
+
+    const concatDayMealsIngredients: { id: string, itemName: string }[] = [];
+    return concatDayMealsIngredients.concat(...dayMealsIngredients);
+  }));
+
+  const concatPlannedMealsIngredients: { id: string, itemName: string }[] = [];
+  await db.shoppingList.add({
+    id: 1,
+    items: concatPlannedMealsIngredients.concat(...plannedMealsIngredients),
+  });
+};
+
+export const getShoppingList = async () => {
+  const shoppingList = await db.shoppingList
+    .where('id')
+    .equals(1)
+    .toArray();
+  const shoppingListItems = shoppingList[0].items;
+
+  return shoppingListItems;
 };
