@@ -1,9 +1,13 @@
-const ShoppingList = () => (
+type ShoppingListProps = {
+  shoppingList: { id: string, itemName: string }[] | []
+};
+
+const ShoppingList = ({ shoppingList }: ShoppingListProps) => (
   <article>
     <ul>
-      <li>Bread</li>
-      <li>Milk</li>
-      <li>Eggs</li>
+      {shoppingList.map((item) => (
+        <li key={item.id}>{item.itemName}</li>
+      ))}
     </ul>
   </article>
 );

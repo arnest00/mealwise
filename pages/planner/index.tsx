@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 
+import Button from '../../components/atoms/Button';
+
 import Layout from '../../components/organisms/Layout';
 import Planner from '../../components/organisms/Planner';
 
@@ -9,6 +11,7 @@ import {
   getShoppingDay,
   createMealPlan,
   getAllPlannedMeals,
+  createShoppingList,
 } from '../../services/dbService';
 
 type MealPlan = {
@@ -17,7 +20,7 @@ type MealPlan = {
 
 const PlannerPage: NextPage = () => {
   const [shoppingDay, setShoppingDay] = useState('');
-  const [plannedMeals, setPlannedMeals] = useState<MealPlan>();
+  const [plannedMeals, setPlannedMeals] = useState<MealPlan>({});
 
   const DAYS_OF_THE_WEEK = [
     'Sunday',
@@ -34,6 +37,10 @@ const PlannerPage: NextPage = () => {
     createMealPlan();
 
     setShoppingDay(e.target.value);
+  };
+
+  const handleCreateShoppingList = () => {
+    createShoppingList(plannedMeals);
   };
 
   useEffect(() => {
@@ -87,6 +94,12 @@ const PlannerPage: NextPage = () => {
             ))}
           </select>
         </label>
+
+        <Button
+          buttonType="button"
+          buttonName="create shopping list"
+          onClick={handleCreateShoppingList}
+        />
       </div>
 
       {shoppingDay && (
