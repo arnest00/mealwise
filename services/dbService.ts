@@ -219,3 +219,19 @@ export const getShoppingList = async () => {
 
   return shoppingListItems;
 };
+
+export const deleteShoppingListItem = async (id: string) => {
+  const shoppingList = await db.shoppingList
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  const newShoppingList = [...shoppingList[0].items].filter(
+    (item) => item.id !== id,
+  );
+
+  await db.shoppingList.update(1, {
+    id: 1,
+    items: newShoppingList,
+  });
+};
