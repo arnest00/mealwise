@@ -182,6 +182,25 @@ export const getAllPlannedMeals = async () => {
   return { ...plannedMealsPerDayWithName };
 };
 
+export const deletePlannedMeal = async (dayId: number, id: string) => {
+  const mealPlan = await db.mealPlan
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  const newPlannedMealsOfDay = [...mealPlan[0].meals[dayId]].filter(
+    (meal) => meal.id !== id,
+  );
+
+  const newPlannedMeals = { ...mealPlan[0].meals };
+  newPlannedMeals[dayId] = newPlannedMealsOfDay;
+
+  await db.mealPlan.update(1, {
+    id: 1,
+    meals: newPlannedMeals,
+  });
+};
+
 // shoppingList
 export const createShoppingList = async (plannedMeals: {
   [key: number]: { id: string, recipeId: string, recipeName: string }[]
