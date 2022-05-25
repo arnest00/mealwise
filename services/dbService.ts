@@ -201,6 +201,22 @@ export const deletePlannedMeal = async (dayId: number, id: string) => {
   });
 };
 
+export const deleteMealPlan = async () => {
+  await db.mealPlan.update(1, {
+    id: 1,
+    meals: {
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: [],
+      6: [],
+      7: [],
+    },
+  });
+};
+
 // shoppingList
 export const createShoppingList = async (plannedMeals: {
   [key: number]: { id: string, recipeId: string, recipeName: string }[]

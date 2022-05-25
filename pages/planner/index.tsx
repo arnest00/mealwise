@@ -12,6 +12,7 @@ import {
   createMealPlan,
   getAllPlannedMeals,
   createShoppingList,
+  deleteMealPlan,
 } from '../../services/dbService';
 
 type MealPlan = {
@@ -41,6 +42,10 @@ const PlannerPage: NextPage = () => {
 
   const handleCreateShoppingList = () => {
     createShoppingList(plannedMeals);
+  };
+
+  const handleDeleteMealPlan = () => {
+    deleteMealPlan();
   };
 
   useEffect(() => {
@@ -95,11 +100,20 @@ const PlannerPage: NextPage = () => {
           </select>
         </label>
 
-        <Button
-          buttonType="button"
-          buttonName="create shopping list"
-          onClick={handleCreateShoppingList}
-        />
+        <div className="grid-two-col">
+          <Button
+            buttonType="button"
+            buttonName="create shopping list"
+            onClick={handleCreateShoppingList}
+          />
+
+          <Button
+            buttonType="button"
+            buttonName="delete meal plan"
+            modifier="--bad-job"
+            onClick={handleDeleteMealPlan}
+          />
+        </div>
       </div>
 
       {shoppingDay && (
