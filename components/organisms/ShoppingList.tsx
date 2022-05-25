@@ -1,14 +1,18 @@
+import ShoppingListItem from '../molecules/ShopplingListItem';
+
 type ShoppingListProps = {
   shoppingList: { id: string, itemName: string }[] | []
 };
 
 const ShoppingList = ({ shoppingList }: ShoppingListProps) => (
   <article>
-    <ul>
-      {shoppingList.map((item) => (
-        <li key={item.id}>{item.itemName}</li>
-      ))}
-    </ul>
+    {shoppingList.map((item) => (
+      <ShoppingListItem
+        key={item.id}
+        id={item.id}
+        name={item.itemName}
+      />
+    ))}
   </article>
 );
 

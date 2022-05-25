@@ -1,0 +1,10 @@
+.shopping-list-item {
+  margin: 0.5rem 0;
+
+  &__checkbox {
+    &:checked + .shopping-list-item__label {
+      color: $neutral-grey-30;
+      text-decoration: line-through;
+    }
+  }
+}
