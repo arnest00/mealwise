@@ -12,6 +12,7 @@ import Button from '../atoms/Button';
 import InputGroup from '../atoms/InputGroup';
 import SelectGroup from '../atoms/SelectGroup';
 import Status from '../atoms/Status';
+import Validator from '../atoms/Validator';
 
 import IngredientInputs from '../molecules/IngredientInputs';
 
@@ -188,9 +189,9 @@ const RecipeForm = () => {
         <legend className="bigger">Ingredient Information</legend>
 
         <p className="smaller">
-          Add ingredients by denoting quantity, unit, and type of ingredient.
+          Add ingredients by denoting quantity, an optional unit, and type of ingredient.
           {' '}
-          Just the quantity and type of ingredient would also be sufficient. For example, &quot;1
+          For example, &quot;1
           {' '}
           <abbr title="tablespoon">
             tbsp
@@ -198,6 +199,10 @@ const RecipeForm = () => {
           {' '}
           olive oil&quot; or &quot;3 apples&quot;.
         </p>
+
+        <Validator
+          ingredientsList={ingredientsList}
+        />
 
         {ingredientsList.map(({ id, content }) => (
           <IngredientInputs
