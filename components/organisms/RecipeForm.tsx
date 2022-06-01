@@ -8,13 +8,15 @@ import { nanoid } from 'nanoid';
 import IFormData from '../../interfaces/IFormData';
 import { addRecipe } from '../../services/dbService';
 
+import Button from '../atoms/Button';
 import InputGroup from '../atoms/InputGroup';
 import SelectGroup from '../atoms/SelectGroup';
-import Button from '../atoms/Button';
+import Status from '../atoms/Status';
 
 import IngredientInputs from '../molecules/IngredientInputs';
 
 const RecipeForm = () => {
+  const formTopRef = useRef<null | HTMLDivElement>(null);
   const formBottomRef = useRef<null | HTMLDivElement>(null);
 
   const [status, setStatus] = useState('');
@@ -108,6 +110,7 @@ const RecipeForm = () => {
 
     if (result !== 'error') {
       e.target.reset();
+      formTopRef.current?.scrollIntoView({ behavior: 'smooth' });
       setFormData({
         name: '',
         description: '',
@@ -128,7 +131,8 @@ const RecipeForm = () => {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <p>{status}</p>
+      <div ref={formTopRef} />
+      <Status status={status} />
 
       <fieldset className="form__fieldset">
         <legend className="bigger">Recipe Information</legend>
