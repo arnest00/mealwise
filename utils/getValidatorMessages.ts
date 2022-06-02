@@ -1,6 +1,4 @@
-const errorMessages = {
-  START_NUMBER: 'An ingredient must begin with a number for quantity.',
-};
+import { errorMessages } from '../context/ValidatorContext';
 
 const startsWithANumber = (ingredient: string) => {
   const regex = /^(\d)+[ ]?/g;
@@ -13,7 +11,10 @@ const startsWithANumber = (ingredient: string) => {
 };
 
 const getValidatorMessages = (ingredients: string[]) => {
-  const errors = ingredients.map((ingredient) => startsWithANumber(ingredient));
+  const errors = ingredients.map((ingredient) => {
+    if (!ingredient) return null;
+    return startsWithANumber(ingredient);
+  });
 
   return Array.from(new Set(errors));
 };

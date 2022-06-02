@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react';
 import { nanoid } from 'nanoid';
+import { ValidatorProvider } from '../../context/ValidatorContext';
 import IFormData from '../../interfaces/IFormData';
 import { addRecipe } from '../../services/dbService';
 
@@ -14,6 +15,7 @@ import SelectGroup from '../atoms/SelectGroup';
 import Status from '../atoms/Status';
 import Validator from '../atoms/Validator';
 
+import FormActions from '../molecules/FormActions';
 import IngredientInputs from '../molecules/IngredientInputs';
 
 const RecipeForm = () => {
@@ -131,110 +133,103 @@ const RecipeForm = () => {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div ref={formTopRef} />
-      <Status status={status} />
+    <ValidatorProvider>
+      <form className="form" onSubmit={handleSubmit}>
+        <div ref={formTopRef} />
+        <Status status={status} />
 
-      <fieldset className="form__fieldset">
-        <legend className="bigger">Recipe Information</legend>
+        <fieldset className="form__fieldset">
+          <legend className="bigger">Recipe Information</legend>
 
-        <InputGroup
-          inputName="name"
-          inputType="text"
-          isRequired
-          onChange={handleNameChange}
-          value={formData.name}
-        />
-
-        <InputGroup
-          inputName="description"
-          inputType="text"
-          isRequired={false}
-          onChange={handleDescriptionChange}
-          value={formData.description}
-        />
-
-        <InputGroup
-          inputName="link"
-          inputType="url"
-          isRequired={false}
-          onChange={handleLinkChange}
-          value={formData.link}
-        />
-
-        <div className="grid-two-col">
-          <SelectGroup
-            selectName="category"
+          <InputGroup
+            inputName="name"
+            inputType="text"
             isRequired
-            onChange={handleCategoryChange}
-            value={formData.category}
-            options={[
-              'Breakfast',
-              'Lunch',
-              'Dinner',
-            ]}
+            onChange={handleNameChange}
+            value={formData.name}
           />
 
           <InputGroup
-            inputName="servings"
-            inputType="number"
+            inputName="description"
+            inputType="text"
             isRequired={false}
-            onChange={handleServingsChange}
-            value={formData.servings}
+            onChange={handleDescriptionChange}
+            value={formData.description}
           />
+
+          <InputGroup
+            inputName="link"
+            inputType="url"
+            isRequired={false}
+            onChange={handleLinkChange}
+            value={formData.link}
+          />
+
+          <div className="grid-two-col">
+            <SelectGroup
+              selectName="category"
+              isRequired
+              onChange={handleCategoryChange}
+              value={formData.category}
+              options={[
+                'Breakfast',
+                'Lunch',
+                'Dinner',
+              ]}
+            />
+
+            <InputGroup
+              inputName="servings"
+              inputType="number"
+              isRequired={false}
+              onChange={handleServingsChange}
+              value={formData.servings}
+            />
+          </div>
+        </fieldset>
+
+        <fieldset className="form__fieldset">
+          <legend className="bigger">Ingredient Information</legend>
+
+          <p className="smaller">
+            Add ingredients by denoting quantity, an optional unit, and type of ingredient.
+            {' '}
+            For example, &quot;1
+            {' '}
+            <abbr title="tablespoon">
+              tbsp
+            </abbr>
+            {' '}
+            olive oil&quot; or &quot;3 apples&quot;.
+          </p>
+
+          <Validator
+            ingredientsList={ingredientsList}
+          />
+
+          {ingredientsList.map(({ id, content }) => (
+            <IngredientInputs
+              key={id}
+              onClick={() => handleRemoveIngredient(id)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleIngredientChange(e, id)}
+              value={content}
+            />
+          ))}
+
+          <Button
+            buttonType="button"
+            buttonName="add ingredient"
+            onClick={handleAddIngredient}
+          />
+        </fieldset>
+
+        <div className="grid-two-col">
+          <FormActions />
         </div>
-      </fieldset>
 
-      <fieldset className="form__fieldset">
-        <legend className="bigger">Ingredient Information</legend>
-
-        <p className="smaller">
-          Add ingredients by denoting quantity, an optional unit, and type of ingredient.
-          {' '}
-          For example, &quot;1
-          {' '}
-          <abbr title="tablespoon">
-            tbsp
-          </abbr>
-          {' '}
-          olive oil&quot; or &quot;3 apples&quot;.
-        </p>
-
-        <Validator
-          ingredientsList={ingredientsList}
-        />
-
-        {ingredientsList.map(({ id, content }) => (
-          <IngredientInputs
-            key={id}
-            onClick={() => handleRemoveIngredient(id)}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleIngredientChange(e, id)}
-            value={content}
-          />
-        ))}
-
-        <Button
-          buttonType="button"
-          buttonName="add ingredient"
-          onClick={handleAddIngredient}
-        />
-      </fieldset>
-
-      <div className="grid-two-col">
-        <Button
-          buttonType="submit"
-          buttonName="save"
-          modifier="--good-job"
-        />
-        <Button
-          buttonType="reset"
-          buttonName="clear"
-          modifier="--bad-job"
-        />
-      </div>
-
-      <div ref={formBottomRef} />
-    </form>
+        <div ref={formBottomRef} />
+      </form>
+    </ValidatorProvider>
   );
 };
 

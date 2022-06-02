@@ -6,6 +6,7 @@ type ButtonProps = {
   buttonName: string,
   modifier?: string,
   onClick?: MouseEventHandler,
+  disabled?: boolean,
 };
 
 const Button = ({
@@ -13,6 +14,7 @@ const Button = ({
   buttonName,
   modifier,
   onClick,
+  disabled,
 }: ButtonProps) => {
   const classes = modifier ? `button button${modifier}` : 'button';
 
@@ -21,6 +23,7 @@ const Button = ({
       type={buttonType}
       className={classes}
       onClick={onClick}
+      disabled={disabled}
     >
       {buttonName}
     </button>
@@ -30,6 +33,7 @@ const Button = ({
 Button.defaultProps = {
   modifier: '',
   onClick: null,
+  disabled: false,
 };
 
 export default Button;

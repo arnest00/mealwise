@@ -14,7 +14,7 @@ const Validator = ({ ingredientsList }: ValidatorProps) => {
   return (
     <div>
       {errors.map((error: string | null) => (
-        <span key={error}>{error}</span>
+        <p key={error} className="smaller bad-job">{error}</p>
       ))}
     </div>
   );
