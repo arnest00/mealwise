@@ -45,3 +45,9 @@
   grid-template-columns: 11fr 1fr;
   gap: 1rem;
 }
+
+.grid-end-two-buttons {
+  display: grid;
+  grid-template-columns: 10fr 1fr 1fr;
+  gap: 1rem;
+}

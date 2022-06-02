@@ -270,3 +270,23 @@ export const deleteShoppingListItem = async (id: string) => {
     items: newShoppingList,
   });
 };
+
+export const editShoppingListItem = async (id: string, editedValue: string) => {
+  const shoppingList = await db.shoppingList
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  const newShoppingList = [...shoppingList[0].items].map((item) => {
+    if (item.id === id) {
+      return { ...item, itemName: editedValue };
+    }
+
+    return item;
+  });
+
+  await db.shoppingList.update(1, {
+    id: 1,
+    items: newShoppingList,
+  });
+};
