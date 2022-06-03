@@ -1,5 +1,5 @@
 import {
-  ChangeEvent, FocusEvent, KeyboardEvent, useState,
+  ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, useState,
 } from 'react';
 
 type EditableTextProps = {
@@ -11,27 +11,33 @@ type EditableTextProps = {
 const EditableText = ({ text, textId, setText }: EditableTextProps) => {
   const [editValue, setEditValue] = useState(text);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => setEditValue(e.target.value);
+  const handleClick = (e: MouseEvent<HTMLInputElement>) => e.currentTarget.select();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => setEditValue(e.currentTarget.value);
 
   const handleOnKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if ((e.key === 'Enter') && (document.activeElement instanceof HTMLElement)) {
-      document.activeElement.blur();
+    if (e.key === 'Enter') {
+      e.currentTarget.blur();
     }
   };
 
-  const handleBlur = (e: FocusEvent<HTMLInputElement, Element>) => setText(textId, e.target.value);
+  const handleBlur = (e: FocusEvent<HTMLInputElement, Element>) => {
+    setText(textId, e.currentTarget.value);
+  };
 
   return (
-    <div>
-      <label htmlFor={textId}>
+    <div className="editable-text">
+      <label htmlFor={textId} className="editable-text__label">
         Previous value:
         {' '}
         {text}
       </label>
       <input
         id={textId}
+        className="editable-text__input"
         type="text"
         value={editValue}
+        onClick={(e) => handleClick(e)}
         onChange={(e) => handleChange(e)}
         onKeyDown={(e) => handleOnKeyDown(e)}
         onBlur={(e) => handleBlur(e)}
