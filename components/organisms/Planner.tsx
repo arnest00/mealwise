@@ -5,10 +5,15 @@ type PlannerProps = {
   shoppingDay: string,
   plannedMeals: {
     [key: string | number]: { id: string, recipeId: string, recipeName: string }[]
-  } | undefined
+  } | undefined,
+  plannerNotes: {
+    [key: string | number]: { id: string, content: string }[]
+  } | undefined,
 };
 
-const Planner = ({ daysOfTheWeek, shoppingDay, plannedMeals }: PlannerProps) => {
+const Planner = ({
+  daysOfTheWeek, shoppingDay, plannedMeals, plannerNotes,
+}: PlannerProps) => {
   const indexOfShoppingDay = daysOfTheWeek.indexOf(shoppingDay);
 
   const newShoppingWeekStart = daysOfTheWeek.slice(indexOfShoppingDay);
@@ -35,6 +40,7 @@ const Planner = ({ daysOfTheWeek, shoppingDay, plannedMeals }: PlannerProps) => 
             dayId={day.id}
             dayName={day.name}
             dayMeals={plannedMeals ? plannedMeals[idxString] : []}
+            dayNotes={plannerNotes ? plannerNotes[idxString] : []}
           />
         );
       })}

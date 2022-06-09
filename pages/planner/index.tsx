@@ -13,15 +13,23 @@ import {
   getAllPlannedMeals,
   createShoppingList,
   deleteMealPlan,
+  createPlanNotes,
+  getAllPlannerNotes,
+  deletePlanNotes,
 } from '../../services/dbService';
 
 type MealPlan = {
   [key: number]: { id: string, recipeId: string, recipeName: string }[]
 };
 
+type Notes = {
+  [key: number]: { id: string, content: string }[]
+};
+
 const PlannerPage: NextPage = () => {
   const [shoppingDay, setShoppingDay] = useState('');
   const [plannedMeals, setPlannedMeals] = useState<MealPlan>({});
+  const [plannerNotes, setPlannerNotes] = useState<Notes>({});
 
   const DAYS_OF_THE_WEEK = [
     'Sunday',
@@ -36,6 +44,7 @@ const PlannerPage: NextPage = () => {
   const handleSelect = (e: { target: any }) => {
     selectShoppingDay(e.target.value);
     createMealPlan();
+    createPlanNotes();
 
     setShoppingDay(e.target.value);
   };
@@ -46,6 +55,7 @@ const PlannerPage: NextPage = () => {
 
   const handleDeleteMealPlan = () => {
     deleteMealPlan();
+    deletePlanNotes();
   };
 
   useEffect(() => {
@@ -74,8 +84,28 @@ const PlannerPage: NextPage = () => {
       }
     };
 
+    const getAndSetPlannerNotes = async () => {
+      try {
+        const currentPlannerNotes = await getAllPlannerNotes();
+
+        setPlannerNotes(currentPlannerNotes);
+      } catch (err) {
+        setPlannerNotes({
+          0: [],
+          1: [],
+          2: [],
+          3: [],
+          4: [],
+          5: [],
+          6: [],
+          7: [],
+        });
+      }
+    };
+
     getAndSetShoppingDay();
     getAndSetPlannedMeals();
+    getAndSetPlannerNotes();
   }, [shoppingDay, plannedMeals]);
 
   return (
@@ -121,6 +151,7 @@ const PlannerPage: NextPage = () => {
           daysOfTheWeek={DAYS_OF_THE_WEEK}
           shoppingDay={shoppingDay}
           plannedMeals={plannedMeals}
+          plannerNotes={plannerNotes}
         />
       )}
     </Layout>

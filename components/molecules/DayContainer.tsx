@@ -1,21 +1,30 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { nanoid } from 'nanoid';
 
-import { deletePlannedMeal } from '../../services/dbService';
+import { deletePlannedMeal, addNoteToPlan } from '../../services/dbService';
 
 import Button from '../atoms/Button';
 import IconButton from '../atoms/IconButton';
+import InputGroup from '../atoms/InputGroup';
+import Note from './Note';
 
 type DayContainerProps = {
   dayId: number,
   dayName: string,
-  dayMeals: { id: string, recipeId: string, recipeName: string }[] | undefined
+  dayMeals: { id: string, recipeId: string, recipeName: string }[] | undefined,
+  dayNotes: { id: string, content: string }[] | undefined,
 };
 
-const DayContainer = ({ dayName, dayId, dayMeals }: DayContainerProps) => {
+const DayContainer = ({
+  dayName, dayId, dayMeals, dayNotes,
+}: DayContainerProps) => {
   const [meals, setMeals] = useState<{ id: string, recipeId: string, recipeName: string }[]>();
+  const [notes, setNotes] = useState<{ id: string, content: string }[]>();
+  const [isAddingNote, setIsAddingNote] = useState(false);
+  const [newNoteValue, setNewNoteValue] = useState('');
   const router = useRouter();
 
   const handleAddMeal = () => {
@@ -32,9 +41,24 @@ const DayContainer = ({ dayName, dayId, dayMeals }: DayContainerProps) => {
     deletePlannedMeal(dayOfMeal, id);
   };
 
+  const handleNoteChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewNoteValue(e.currentTarget.value);
+  };
+
+  const handleAddNewNote = () => {
+    setIsAddingNote(true);
+  };
+
+  const handleSaveNewNote = (dayOfNote: number, id: string, content: string) => {
+    addNoteToPlan(dayOfNote, id, content);
+    setIsAddingNote(false);
+    setNewNoteValue('');
+  };
+
   useEffect(() => {
     setMeals(dayMeals);
-  }, [dayMeals]);
+    setNotes(dayNotes);
+  }, [dayMeals, dayNotes]);
 
   return (
     <section>
@@ -58,6 +82,42 @@ const DayContainer = ({ dayName, dayId, dayMeals }: DayContainerProps) => {
         modifier="--link"
         onClick={handleAddMeal}
       />
+
+      <h4 className="bigger">{`${dayName} Notes`}</h4>
+
+      {notes?.map((note: { id: string, content: string }) => (
+        <Note
+          key={note.id}
+          dayId={dayId}
+          id={note.id}
+          content={note.content}
+        />
+      ))}
+
+      {isAddingNote && (
+        <div className="grid-end-button">
+          <InputGroup
+            inputName="new note"
+            inputType="text"
+            isRequired
+            onChange={handleNoteChange}
+            value={newNoteValue}
+          />
+          <IconButton
+            plus
+            onClick={() => handleSaveNewNote(dayId, nanoid(), newNoteValue)}
+          />
+        </div>
+      )}
+
+      {!isAddingNote && (
+        <Button
+          buttonType="button"
+          buttonName="add note"
+          modifier="--link"
+          onClick={handleAddNewNote}
+        />
+      )}
     </section>
   );
 };

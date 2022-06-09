@@ -6,9 +6,12 @@ type EditableTextProps = {
   text: string,
   textId: string,
   setText: Function,
+  dayId?: number | undefined,
 };
 
-const EditableText = ({ text, textId, setText }: EditableTextProps) => {
+const EditableText = ({
+  text, textId, setText, dayId,
+}: EditableTextProps) => {
   const [editValue, setEditValue] = useState(text);
 
   const handleClick = (e: MouseEvent<HTMLInputElement>) => e.currentTarget.select();
@@ -22,15 +25,13 @@ const EditableText = ({ text, textId, setText }: EditableTextProps) => {
   };
 
   const handleBlur = (e: FocusEvent<HTMLInputElement, Element>) => {
-    setText(textId, e.currentTarget.value);
+    setText(textId, e.currentTarget.value, dayId);
   };
 
   return (
     <div className="editable-text">
       <label htmlFor={textId} className="editable-text__label">
-        Previous value:
-        {' '}
-        {text}
+        {`Previous value: ${text}`}
       </label>
       <input
         id={textId}
@@ -44,6 +45,10 @@ const EditableText = ({ text, textId, setText }: EditableTextProps) => {
       />
     </div>
   );
+};
+
+EditableText.defaultProps = {
+  dayId: undefined,
 };
 
 export default EditableText;
