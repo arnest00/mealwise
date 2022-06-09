@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import IFormData from '../interfaces/IFormData';
 import IIngredient from '../interfaces/IIngredient';
 import IMealPlan from '../interfaces/IMealPlan';
+import IPlanNotes from '../interfaces/IPlanNotes';
 import IRecipe from '../interfaces/IRecipe';
 import IShoppingList from '../interfaces/IShoppingList';
 
@@ -16,6 +17,8 @@ export class MealwiseDexie extends Dexie {
 
   shoppingList!: Table<IShoppingList>;
 
+  planNotes!:Table<IPlanNotes>;
+
   constructor() {
     super('mealwiseDB');
     this.version(1).stores({
@@ -23,6 +26,7 @@ export class MealwiseDexie extends Dexie {
       shoppingDay: 'id',
       mealPlan: 'id',
       shoppingList: 'id',
+      planNotes: 'id',
     });
   }
 }
@@ -288,5 +292,120 @@ export const editShoppingListItem = async (id: string, editedValue: string) => {
   await db.shoppingList.update(1, {
     id: 1,
     items: newShoppingList,
+  });
+};
+
+// planNotes
+export const createPlanNotes = async () => {
+  const previousPlanNotes = await db.planNotes
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  if (!previousPlanNotes[0]) {
+    await db.planNotes.add({
+      id: 1,
+      notes: {
+        0: [],
+        1: [],
+        2: [],
+        3: [],
+        4: [],
+        5: [],
+        6: [],
+        7: [],
+      },
+    });
+  }
+};
+
+export const getAllPlannerNotes = async () => {
+  const plannerNotes = await db.planNotes
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  return plannerNotes[0].notes;
+};
+
+export const addNoteToPlan = async (
+  dayId: string | string[] | number | undefined,
+  noteId: string,
+  noteContent: string,
+) => {
+  const dayIdAsNum = Number(dayId);
+  const currentPlanNotes = await db.planNotes
+    .where('id')
+    .equals(1)
+    .toArray();
+  const newPlanNotes = { ...currentPlanNotes[0].notes };
+  const currentDayNotes = newPlanNotes[dayIdAsNum];
+
+  currentDayNotes.push({
+    id: noteId,
+    content: noteContent,
+  });
+
+  await db.planNotes.update(1, {
+    id: 1,
+    notes: newPlanNotes,
+  });
+};
+
+export const deletePlannerNote = async (dayId: number, id: string) => {
+  const planNotes = await db.planNotes
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  const newPlannerNotesOfTheDay = [...planNotes[0].notes[dayId]].filter(
+    (note) => note.id !== id,
+  );
+
+  const newPlannerNotes = { ...planNotes[0].notes };
+  newPlannerNotes[dayId] = newPlannerNotesOfTheDay;
+
+  await db.planNotes.update(1, {
+    id: 1,
+    notes: newPlannerNotes,
+  });
+};
+
+export const editPlannerNote = async (id: string, editedValue: string, dayId: number) => {
+  const planNotes = await db.planNotes
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  const newPlannerNotesOfTheDay = [...planNotes[0].notes[dayId]].map((note) => {
+    if (note.id === id) {
+      return { id, content: editedValue };
+    }
+
+    return note;
+  });
+
+  const newPlannerNotes = { ...planNotes[0].notes };
+  newPlannerNotes[dayId] = newPlannerNotesOfTheDay;
+
+  await db.planNotes.update(1, {
+    id: 1,
+    notes: newPlannerNotes,
+  });
+};
+
+export const deletePlanNotes = async () => {
+  await db.planNotes.update(1, {
+    id: 1,
+    notes: {
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: [],
+      6: [],
+      7: [],
+    },
   });
 };
