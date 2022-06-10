@@ -295,6 +295,10 @@ export const editShoppingListItem = async (id: string, editedValue: string) => {
   });
 };
 
+export const deleteShoppingList = async () => {
+  await db.shoppingList.delete(1);
+};
+
 // planNotes
 export const createPlanNotes = async () => {
   const previousPlanNotes = await db.planNotes
