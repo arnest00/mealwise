@@ -246,6 +246,7 @@ export const createShoppingList = async (plannedMeals: {
   await db.shoppingList.add({
     id: 1,
     items: concatPlannedMealsIngredients.concat(...plannedMealsIngredients),
+    misc: [],
   });
 };
 
@@ -254,9 +255,27 @@ export const getShoppingList = async () => {
     .where('id')
     .equals(1)
     .toArray();
-  const shoppingListItems = shoppingList[0].items;
+  const shoppingListItems = shoppingList[0];
 
   return shoppingListItems;
+};
+
+export const addShoppingListMisc = async (itemId: string, itemName: string) => {
+  const shoppingList = await db.shoppingList
+    .where('id')
+    .equals(1)
+    .toArray();
+  const newShoppingListMisc = [...shoppingList[0].misc];
+
+  newShoppingListMisc.push({
+    id: itemId,
+    itemName,
+  });
+
+  await db.shoppingList.update(1, {
+    id: 1,
+    misc: newShoppingListMisc,
+  });
 };
 
 export const deleteShoppingListItem = async (id: string) => {
@@ -265,13 +284,29 @@ export const deleteShoppingListItem = async (id: string) => {
     .equals(1)
     .toArray();
 
-  const newShoppingList = [...shoppingList[0].items].filter(
+  const newShoppingListItems = [...shoppingList[0].items].filter(
     (item) => item.id !== id,
   );
 
   await db.shoppingList.update(1, {
     id: 1,
-    items: newShoppingList,
+    items: newShoppingListItems,
+  });
+};
+
+export const deleteMiscListItem = async (id: string) => {
+  const shoppingList = await db.shoppingList
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  const newShoppingListMisc = [...shoppingList[0].misc].filter(
+    (item) => item.id !== id,
+  );
+
+  await db.shoppingList.update(1, {
+    id: 1,
+    misc: newShoppingListMisc,
   });
 };
 
@@ -295,8 +330,32 @@ export const editShoppingListItem = async (id: string, editedValue: string) => {
   });
 };
 
+export const editShoppingListMisc = async (id: string, editedValue: string) => {
+  const shoppingList = await db.shoppingList
+    .where('id')
+    .equals(1)
+    .toArray();
+
+  const newShoppingListMisc = [...shoppingList[0].misc].map((item) => {
+    if (item.id === id) {
+      return { ...item, itemName: editedValue };
+    }
+
+    return item;
+  });
+
+  await db.shoppingList.update(1, {
+    id: 1,
+    misc: newShoppingListMisc,
+  });
+};
+
 export const deleteShoppingList = async () => {
-  await db.shoppingList.delete(1);
+  await db.shoppingList.update(1, {
+    id: 1,
+    items: [],
+    misc: [],
+  });
 };
 
 // planNotes
