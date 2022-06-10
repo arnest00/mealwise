@@ -7,10 +7,16 @@ import Button from '../../components/atoms/Button';
 import Layout from '../../components/organisms/Layout';
 import ShoppingList from '../../components/organisms/ShoppingList';
 
+type ShoppingListType = {
+  items: { id: string, itemName: string }[] | [],
+  misc: { id: string, itemName: string }[] | [],
+};
+
 const ShoppingListPage: NextPage = () => {
-  const [shoppingList, setShoppingList] = useState<{ id: string, itemName: string }[] | []>([]);
+  const [shoppingList, setShoppingList] = useState<ShoppingListType>({ items: [], misc: [] });
 
   const handleDeleteShoppingList = () => {
+    setShoppingList({ items: [], misc: [] });
     deleteShoppingList();
   };
 
@@ -21,7 +27,7 @@ const ShoppingListPage: NextPage = () => {
 
         setShoppingList(shoppingListItems);
       } catch (err) {
-        setShoppingList([]);
+        setShoppingList({ items: [], misc: [] });
       }
     };
 
@@ -42,7 +48,8 @@ const ShoppingListPage: NextPage = () => {
       />
 
       <ShoppingList
-        shoppingList={shoppingList}
+        items={shoppingList.items}
+        misc={shoppingList.misc}
       />
     </Layout>
   );
