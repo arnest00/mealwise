@@ -28,7 +28,7 @@ const Note = ({ dayId, id, content }: NoteProps) => {
   };
 
   return (
-    <div key={id} className="grid-end-two-buttons">
+    <div key={id} className="obj-grid-end-two-buttons">
       {!editing && (
         <span>{content}</span>
       )}

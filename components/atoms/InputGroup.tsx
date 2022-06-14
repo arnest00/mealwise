@@ -15,10 +15,12 @@ const InputGroup = ({
   onChange,
   value,
 }: InputProps) => {
-  const labelClasses = isRequired ? 'input-group__label' : 'input-group__label input-group__label--optional';
+  const labelClasses = isRequired
+    ? 'cmp-input-group__label'
+    : 'cmp-input-group__label cmp-input-group__label--optional';
 
   return (
-    <div className="input-group">
+    <div className="cmp-input-group">
       <label htmlFor={inputName} className={labelClasses}>
         {inputName}
         {!isRequired && ' (optional)'}
@@ -29,7 +31,7 @@ const InputGroup = ({
         required={isRequired}
         onChange={onChange}
         value={value}
-        className="input-group__input"
+        className="cmp-input-group__input"
       />
     </div>
   );

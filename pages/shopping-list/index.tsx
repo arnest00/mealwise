@@ -43,7 +43,7 @@ const ShoppingListPage: NextPage = () => {
       <Button
         buttonType="button"
         buttonName="delete shopping list"
-        modifier="--bad-job"
+        modifier="destructive"
         onClick={handleDeleteShoppingList}
       />
 

@@ -7,7 +7,6 @@ import IRecipeBook from '../../interfaces/IRecipeBook';
 import { getAllRecipes } from '../../services/dbService';
 
 import MealsList from '../../components/molecules/MealsList';
-
 import Layout from '../../components/organisms/Layout';
 
 const AddMealPage: NextPage = () => {

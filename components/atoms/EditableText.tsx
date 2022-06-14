@@ -29,13 +29,13 @@ const EditableText = ({
   };
 
   return (
-    <div className="editable-text">
-      <label htmlFor={textId} className="editable-text__label">
+    <div className="cmp-editable-text">
+      <label htmlFor={textId} className="cmp-editable-text__label">
         {`Previous value: ${text}`}
       </label>
       <input
         id={textId}
-        className="editable-text__input"
+        className="cmp-editable-text__input"
         type="text"
         value={editValue}
         onClick={(e) => handleClick(e)}

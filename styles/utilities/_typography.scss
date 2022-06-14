@@ -1,4 +1,4 @@
-// Typography scale
+// Font-size
 .smaller {
   font-size: 0.81rem;
   line-height: 1.7;
@@ -31,23 +31,4 @@
 // Alignment
 .text-align-center {
   text-align: center;
-}
-
-// Layout
-.grid-two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.grid-end-button {
-  display: grid;
-  grid-template-columns: 11fr 1fr;
-  gap: 1rem;
-}
-
-.grid-end-two-buttons {
-  display: grid;
-  grid-template-columns: 10fr 1fr 1fr;
-  gap: 1rem;
 }

@@ -1,4 +1,4 @@
-.editable-text {
+.cmp-editable-text {
   background-color: transparent;
   display: flex;
   align-items: center;
@@ -10,7 +10,7 @@
   &__input {
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid $secondary-10;
+    border-bottom: 1px solid $secondary-purple-10;
     flex-grow: 1;
     font-family: inherit;
     font-size: inherit;

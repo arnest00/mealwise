@@ -14,7 +14,7 @@ const Button = ({
   modifier,
   onClick,
 }: ButtonProps) => {
-  const classes = modifier ? `button button${modifier}` : 'button';
+  const classes = modifier ? `cmp-button cmp-button--${modifier}` : 'cmp-button';
 
   return (
     <button

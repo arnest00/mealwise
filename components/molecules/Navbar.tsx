@@ -1,32 +1,31 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faBook, faBowlFood, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => (
-  <nav className="nav">
-    <ul className="nav__link-list">
-      <li className="smaller text-align-center nav__list-item">
+  <nav className="cmp-nav">
+    <ul className="cmp-nav__link-list">
+      <li className="smaller text-align-center cmp-nav__list-item">
         <Link href="/recipes">
-          <a className="nav__link">
-            <FontAwesomeIcon icon={faBook} className="nav__link-icon" />
+          <a className="cmp-nav__link">
+            <FontAwesomeIcon icon={faBook} className="cmp-nav__link-icon" />
             Recipe Book
           </a>
         </Link>
       </li>
-      <li className="smaller text-align-center nav__list-item">
+      <li className="smaller text-align-center cmp-nav__list-item">
         <Link href="/planner">
-          <a className="nav__link">
-            <FontAwesomeIcon icon={faBowlFood} className="nav__link-icon" />
+          <a className="cmp-nav__link">
+            <FontAwesomeIcon icon={faBowlFood} className="cmp-nav__link-icon" />
             Meal Plan
           </a>
         </Link>
       </li>
-      <li className="smaller text-align-center nav__list-item">
+      <li className="smaller text-align-center cmp-nav__list-item">
         <Link href="/shopping-list">
-          <a className="nav__link">
-            <FontAwesomeIcon icon={faShoppingCart} className="nav__link-icon" />
+          <a className="cmp-nav__link">
+            <FontAwesomeIcon icon={faShoppingCart} className="cmp-nav__link-icon" />
             Shopping List
           </a>
         </Link>

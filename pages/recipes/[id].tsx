@@ -6,7 +6,6 @@ import IRecipe from '../../interfaces/IRecipe';
 import { getRecipeById } from '../../services/dbService';
 
 import RecipeViewer from '../../components/molecules/RecipeViewer';
-
 import Layout from '../../components/organisms/Layout';
 
 const RecipeView: NextPage = () => {

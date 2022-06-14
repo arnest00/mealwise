@@ -5,13 +5,13 @@ import {
   useState,
 } from 'react';
 import { nanoid } from 'nanoid';
+
 import IFormData from '../../interfaces/IFormData';
 import { addRecipe } from '../../services/dbService';
 
 import InputGroup from '../atoms/InputGroup';
 import SelectGroup from '../atoms/SelectGroup';
 import Button from '../atoms/Button';
-
 import IngredientInputs from '../molecules/IngredientInputs';
 
 const RecipeForm = () => {
@@ -127,10 +127,10 @@ const RecipeForm = () => {
   };
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="obj-form" onSubmit={handleSubmit}>
       <p>{status}</p>
 
-      <fieldset className="form__fieldset">
+      <fieldset className="obj-form__fieldset">
         <legend className="bigger">Recipe Information</legend>
 
         <InputGroup
@@ -157,7 +157,7 @@ const RecipeForm = () => {
           value={formData.link}
         />
 
-        <div className="grid-two-col">
+        <div className="obj-grid-two-col">
           <SelectGroup
             selectName="category"
             isRequired
@@ -180,7 +180,7 @@ const RecipeForm = () => {
         </div>
       </fieldset>
 
-      <fieldset className="form__fieldset">
+      <fieldset className="obj-form__fieldset">
         <legend className="bigger">Ingredient Information</legend>
 
         <p className="smaller">
@@ -211,16 +211,16 @@ const RecipeForm = () => {
         />
       </fieldset>
 
-      <div className="grid-two-col">
+      <div className="obj-grid-two-cols">
         <Button
           buttonType="submit"
           buttonName="save"
-          modifier="--good-job"
+          modifier="positive"
         />
         <Button
           buttonType="reset"
           buttonName="clear"
-          modifier="--bad-job"
+          modifier="destructive"
         />
       </div>
 

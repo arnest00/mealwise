@@ -4,7 +4,7 @@ import React from 'react';
 import Navbar from '../molecules/Navbar';
 
 const Layout: React.FC<{}> = ({ children }) => (
-  <div className="layout">
+  <div className="obj-layout">
     <Head>
       <link rel="icon" href="/favicon.ico" />
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -12,11 +12,11 @@ const Layout: React.FC<{}> = ({ children }) => (
       <title>mealwise</title>
     </Head>
 
-    <header className="layout__header">
+    <header className="obj-layout__header">
       <Navbar />
     </header>
 
-    <main className="layout__main">
+    <main className="obj-layout__main">
       {children}
     </main>
   </div>

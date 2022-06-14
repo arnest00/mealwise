@@ -65,7 +65,7 @@ const DayContainer = ({
       <h3 className="bigger text-align-center">{dayName}</h3>
 
       {meals?.map((meal: { id: string, recipeId: string, recipeName: string }) => (
-        <div key={meal.id} className="grid-end-button">
+        <div key={meal.id} className="obj-grid-end-button">
           <Link href={`/recipes/${meal.recipeId}`}>
             <a>{meal.recipeName}</a>
           </Link>
@@ -79,7 +79,7 @@ const DayContainer = ({
       <Button
         buttonType="button"
         buttonName="add meal"
-        modifier="--link"
+        modifier="link"
         onClick={handleAddMeal}
       />
 
@@ -95,7 +95,7 @@ const DayContainer = ({
       ))}
 
       {isAddingNote && (
-        <div className="grid-end-button">
+        <div className="obj-grid-end-button">
           <InputGroup
             inputName="new note"
             inputType="text"
@@ -114,7 +114,7 @@ const DayContainer = ({
         <Button
           buttonType="button"
           buttonName="add note"
-          modifier="--link"
+          modifier="link"
           onClick={handleAddNewNote}
         />
       )}

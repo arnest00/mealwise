@@ -12,17 +12,17 @@ const RecipeCard = ({ name, description, id }: IRecipe) => {
   };
 
   return (
-    <article className="card">
+    <article className="cmp-card">
       <h3 className="bigger card__title">{name}</h3>
 
-      <p className="card__description">
+      <p className="cmp-card__description">
         {description}
       </p>
 
       <Button
         buttonType="button"
         buttonName="view recipe"
-        modifier="--link"
+        modifier="link"
         onClick={handleClick}
       />
     </article>

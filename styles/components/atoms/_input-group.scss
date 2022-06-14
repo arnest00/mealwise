@@ -1,4 +1,4 @@
-.input-group {
+.cmp-input-group {
   box-sizing: border-box;
   padding: 0.25rem;
   font-family: inherit;
@@ -24,7 +24,7 @@
     width: 100%;
     margin: 0 0 0.75rem;
     border: none;
-    border-bottom: 1px solid $secondary-10;
+    border-bottom: 1px solid $secondary-purple-10;
     padding: 0.5rem 0.25rem;
     transition: border-width 125ms linear;
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 
 import Button from '../../components/atoms/Button';
-
 import Layout from '../../components/organisms/Layout';
 import Planner from '../../components/organisms/Planner';
 
@@ -130,7 +129,7 @@ const PlannerPage: NextPage = () => {
           </select>
         </label>
 
-        <div className="grid-two-col">
+        <div className="obj-grid-two-cols">
           <Button
             buttonType="button"
             buttonName="create shopping list"
@@ -140,7 +139,7 @@ const PlannerPage: NextPage = () => {
           <Button
             buttonType="button"
             buttonName="delete meal plan"
-            modifier="--bad-job"
+            modifier="destructive"
             onClick={handleDeleteMealPlan}
           />
         </div>

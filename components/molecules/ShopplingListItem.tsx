@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { deleteShoppingListItem, editShoppingListItem } from '../../services/dbService';
 
 import EditableText from '../atoms/EditableText';
@@ -26,13 +27,13 @@ const ShoppingListItem = ({ name, id }: ShoppingListProps) => {
   };
 
   return (
-    <div className="grid-end-two-buttons shopping-list-item">
+    <div className="obj-grid-end-two-buttons cmp-shopping-list-item">
       {!editing && (
         <div>
-          <input type="checkbox" name={id} className="shopping-list-item__checkbox" />
+          <input type="checkbox" name={id} className="cmp-shopping-list-item__checkbox" />
           <label
             htmlFor={id}
-            className="shopping-list-item__label"
+            className="cmp-shopping-list-item__label"
           >
             {!editing && name}
           </label>

@@ -1,10 +1,10 @@
-.button {
+.cmp-button {
   outline: none;
   border: transparent;
   box-shadow: 0 0 0.13rem $neutral-grey-10;
   border-radius: 0.25rem;
   padding: 0.75rem 1.25rem;
-  background-color: $primary-30;
+  background-color: $primary-teal-30;
   font-weight: 500;
   text-transform: capitalize;
   letter-spacing: 1px;
@@ -17,7 +17,7 @@
 
   &:hover,
   &:focus {
-    background-color: $primary-40;
+    background-color: $primary-teal-40;
   }
   
   &:hover {
@@ -25,7 +25,7 @@
   }
 
   &:active {
-    background-color: $primary-50;
+    background-color: $primary-teal-50;
     box-shadow: 0 0 0 transparent;
     transform: scale(0.98, 0.98);
   }
@@ -37,13 +37,13 @@
     font-weight: 400;
     text-decoration: underline;
     letter-spacing: unset;
-    color: $secondary-10;
+    color: $secondary-purple-10;
     transition: color 125ms linear;
 
     &:hover,
     &:focus {
       background-color: transparent;
-      color: $secondary-30;
+      color: $secondary-purple-30;
     }
 
     &:hover {
@@ -51,32 +51,32 @@
     }
 
     &:focus {
-      box-shadow: 0 0 0 0.25rem $secondary-30;
+      box-shadow: 0 0 0 0.25rem $secondary-purple-30;
     }
 
     &:active {
       background-color: unset;
       box-shadow: unset;
-      color: $secondary-50;
+      color: $secondary-purple-50;
       transform: unset;
     }
   }
 
-  &--good-job {
-    background-color: $accent-good-job-30;
+  &--positive {
+    background-color: $accent-green-30;
 
     &:hover,
     &:focus {
-      background-color: $accent-good-job-50;
+      background-color: $accent-green-50;
     }
   }
   
-  &--bad-job {
-    background-color: $accent-bad-job-30;
+  &--destructive {
+    background-color: $accent-red-30;
 
     &:hover,
     &:focus {
-      background-color: $accent-bad-job-50;
+      background-color: $accent-red-50;
     }
   }
 }

@@ -10,7 +10,7 @@ type IngredientInputsProps = {
 };
 
 const IngredientInputs = ({ onClick, onChange, value }: IngredientInputsProps) => (
-  <div className="grid-end-button">
+  <div className="obj-grid-end-button">
     <InputGroup
       inputName="ingredient"
       inputType="text"

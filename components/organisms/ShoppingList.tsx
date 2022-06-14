@@ -63,7 +63,7 @@ const ShoppingList = ({ items, misc }: ShoppingListProps) => {
         ))}
 
         {isAddingItem && (
-          <div className="grid-end-button">
+          <div className="obj-grid-end-button">
             <InputGroup
               inputName="new item"
               inputType="text"

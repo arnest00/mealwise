@@ -1,6 +1,5 @@
 import { MouseEventHandler } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faPlus, faMinus, faPencil } from '@fortawesome/free-solid-svg-icons';
 
 type AddButtonProps = {
@@ -15,7 +14,7 @@ const IconButton = ({
 }: AddButtonProps) => (
   <button
     type="button"
-    className="icon-button"
+    className="cmp-icon-button"
     onClick={onClick}
   >
     {plus && <FontAwesomeIcon icon={faPlus} />}

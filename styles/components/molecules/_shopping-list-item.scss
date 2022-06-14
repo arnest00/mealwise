@@ -1,16 +1,14 @@
-.shopping-list-item {
+.cmp-shopping-list-item {
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
   height: 60px;
   padding: 0.5rem 0;
 
   &:nth-child(even) {
-    background-color: $primary-50;
+    background-color: $primary-teal-50;
   }
 
   &__checkbox {
-    &:checked + .shopping-list-item__label {
+    &:checked + .cmp-shopping-list-item__label {
       color: $neutral-grey-30;
       text-decoration: line-through;
     }

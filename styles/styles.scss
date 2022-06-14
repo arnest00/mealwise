@@ -1,11 +1,56 @@
-// Settings
-@import "./settings";
+// Table of Contents:
+// 1. Settings
+// 2. Tools
+// 3. Generic
+// 4. Elements
+// 5. Objects
+// 6. Components
+// 7. Vendors
+// 8. Utilities
 
-// Elemenmts
-@import "./elements";
+// ====================================================================
+// 1. Settings
+@import "./settings/colors";
+@import "./settings/font-families";
 
-// Components
-@import "./components";
+// ====================================================================
+// 2. Tools
 
-// Utilities
-@import "./utilities";
+// ====================================================================
+// 3. Generic
+
+// ====================================================================
+// 4. Elements
+@import "./elements/body";
+
+// ====================================================================
+// 5. Objects
+@import "./objects/form";
+@import "./objects/grid-end-button";
+@import "./objects/grid-end-two-buttons";
+@import "./objects/grid-two-cols";
+@import "./objects/layout";
+
+// ====================================================================
+// 6a. Atom components
+@import "./components/atoms/button";
+@import "./components/atoms/editable-text";
+@import "./components/atoms/icon-button";
+@import "./components/atoms/input-group";
+@import "./components/atoms/select-group";
+
+// ====================================================================
+// 6b. Molecule components
+@import "./components/molecules/navbar";
+@import "./components/molecules/recipe-card";
+@import "./components/molecules/shopping-list-item";
+
+// ====================================================================
+// 6c. Organism components
+
+// ====================================================================
+// 7. Vendors
+
+// ====================================================================
+// 8. Utilities
+@import "./utilities/typography";

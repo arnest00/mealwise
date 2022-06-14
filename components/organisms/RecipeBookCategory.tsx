@@ -1,4 +1,5 @@
 import IRecipe from '../../interfaces/IRecipe';
+
 import RecipeCard from '../molecules/RecipeCard';
 
 type RecipeBookCategoryProps = {
