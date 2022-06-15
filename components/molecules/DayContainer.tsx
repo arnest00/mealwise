@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent, KeyboardEvent, useEffect, useState,
+} from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
@@ -55,6 +57,16 @@ const DayContainer = ({
     setNewNoteValue('');
   };
 
+  // eslint-disable-next-line consistent-return
+  const handlePressEnterOnNoteInput = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (!newNoteValue) return setIsAddingNote(false);
+      addNoteToPlan(dayId, nanoid(), newNoteValue);
+      setIsAddingNote(false);
+      setNewNoteValue('');
+    }
+  };
+
   useEffect(() => {
     setMeals(dayMeals);
     setNotes(dayNotes);
@@ -101,6 +113,7 @@ const DayContainer = ({
             inputType="text"
             isRequired
             onChange={handleNoteChange}
+            onKeyDown={handlePressEnterOnNoteInput}
             value={newNoteValue}
           />
           <IconButton

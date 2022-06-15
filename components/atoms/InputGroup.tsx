@@ -1,10 +1,11 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, KeyboardEventHandler } from 'react';
 
 type InputProps = {
   inputName: string,
   inputType: 'text' | 'number' | 'url',
   isRequired: boolean,
   onChange: ChangeEventHandler,
+  onKeyDown?: KeyboardEventHandler,
   value?: string | number,
 };
 
@@ -13,6 +14,7 @@ const InputGroup = ({
   inputType,
   isRequired,
   onChange,
+  onKeyDown,
   value,
 }: InputProps) => {
   const labelClasses = isRequired
@@ -30,6 +32,7 @@ const InputGroup = ({
         name={inputName}
         required={isRequired}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         value={value}
         className="cmp-input-group__input"
       />
@@ -39,6 +42,7 @@ const InputGroup = ({
 
 InputGroup.defaultProps = {
   value: '',
+  onKeyDown: null,
 };
 
 export default InputGroup;

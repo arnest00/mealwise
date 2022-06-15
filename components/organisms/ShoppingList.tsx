@@ -1,5 +1,5 @@
 import {
-  ChangeEvent, useEffect, useRef, useState,
+  ChangeEvent, KeyboardEvent, useEffect, useRef, useState,
 } from 'react';
 import { nanoid } from 'nanoid';
 
@@ -33,6 +33,16 @@ const ShoppingList = ({ items, misc }: ShoppingListProps) => {
     addShoppingListMisc(id, content);
     setIsAddingItem(false);
     setNewItemValue('');
+  };
+
+  // eslint-disable-next-line consistent-return
+  const handlePressEnterOnMiscItemInput = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      if (!newItemValue) return setIsAddingItem(false);
+      addShoppingListMisc(nanoid(), newItemValue);
+      setIsAddingItem(false);
+      setNewItemValue('');
+    }
   };
 
   useEffect(() => {
@@ -69,6 +79,7 @@ const ShoppingList = ({ items, misc }: ShoppingListProps) => {
               inputType="text"
               isRequired
               onChange={handleItemChange}
+              onKeyDown={handlePressEnterOnMiscItemInput}
               value={newItemValue}
             />
             <IconButton
