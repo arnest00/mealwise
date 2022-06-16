@@ -46,10 +46,12 @@ const ShoppingListItem = ({ name, id }: ShoppingListProps) => {
           setText={handleEditListItem}
         />
       )}
-      <IconButton
-        pencil
-        onClick={handleStartEditing}
-      />
+      {!editing && (
+        <IconButton
+          pencil
+          onClick={handleStartEditing}
+        />
+      )}
       <IconButton
         minus
         onClick={() => handleDeleteListItem(id)}

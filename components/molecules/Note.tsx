@@ -40,10 +40,12 @@ const Note = ({ dayId, id, content }: NoteProps) => {
           dayId={dayId}
         />
       )}
-      <IconButton
-        pencil
-        onClick={handleStartEditing}
-      />
+      {!editing && (
+        <IconButton
+          pencil
+          onClick={handleStartEditing}
+        />
+      )}
       <IconButton
         minus
         onClick={() => handleDeletePlannerNote(dayId, id)}
