@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { getShoppingList, deleteShoppingList } from '../../services/dbService';
 
 import Button from '../../components/atoms/Button';
+import Modal from '../../components/atoms/Modal';
 import Layout from '../../components/organisms/Layout';
 import ShoppingList from '../../components/organisms/ShoppingList';
 
@@ -14,10 +15,20 @@ type ShoppingListType = {
 
 const ShoppingListPage: NextPage = () => {
   const [shoppingList, setShoppingList] = useState<ShoppingListType>({ items: [], misc: [] });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const checkDeleteShoppingList = () => {
+    setModalIsOpen(true);
+  };
 
   const handleDeleteShoppingList = () => {
     setShoppingList({ items: [], misc: [] });
     deleteShoppingList();
+    setModalIsOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
   };
 
   useEffect(() => {
@@ -44,13 +55,34 @@ const ShoppingListPage: NextPage = () => {
         buttonType="button"
         buttonName="delete shopping list"
         modifier="destructive"
-        onClick={handleDeleteShoppingList}
+        onClick={checkDeleteShoppingList}
       />
 
       <ShoppingList
         items={shoppingList.items}
         misc={shoppingList.misc}
       />
+
+      {modalIsOpen && (
+        <Modal
+          onClick={handleCloseModal}
+        >
+          <p>Delete shopping list?</p>
+          <div className="obj-grid-two-cols">
+            <Button
+              buttonType="button"
+              buttonName="yes, delete it"
+              modifier="destructive"
+              onClick={handleDeleteShoppingList}
+            />
+            <Button
+              buttonType="button"
+              buttonName="no, keep it"
+              onClick={handleCloseModal}
+            />
+          </div>
+        </Modal>
+      )}
     </Layout>
   );
 };

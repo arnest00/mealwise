@@ -31,7 +31,7 @@ const PlannerPage: NextPage = () => {
   const [shoppingDay, setShoppingDay] = useState('');
   const [plannedMeals, setPlannedMeals] = useState<MealPlan>({});
   const [plannerNotes, setPlannerNotes] = useState<Notes>({});
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modal, setModal] = useState({ open: false, message: '' });
   const router = useRouter();
 
   const DAYS_OF_THE_WEEK = [
@@ -55,20 +55,31 @@ const PlannerPage: NextPage = () => {
 
   const handleCreateShoppingList = () => {
     createShoppingList(plannedMeals);
-    setModalIsOpen(true);
+    setModal({
+      open: true,
+      message: 'Shopping list created!',
+    });
+  };
+
+  const checkDeleteMealPlan = () => {
+    setModal({
+      open: true,
+      message: 'Delete meal plan?',
+    });
   };
 
   const handleDeleteMealPlan = () => {
     deleteMealPlan();
     deletePlanNotes();
+    setModal({ open: false, message: '' });
   };
 
   const handleCloseModal = () => {
-    setModalIsOpen(false);
+    setModal({ open: false, message: '' });
   };
 
   const handleNavigateToShoppingList = () => {
-    setModalIsOpen(false);
+    setModal({ open: false, message: '' });
     router.push('/shopping-list');
   };
 
@@ -122,6 +133,38 @@ const PlannerPage: NextPage = () => {
     getAndSetPlannerNotes();
   }, [shoppingDay, plannedMeals]);
 
+  const shoppingListCreatedModalButtons = (
+    <>
+      <Button
+        buttonType="button"
+        buttonName="check it out"
+        modifier="link"
+        onClick={handleNavigateToShoppingList}
+      />
+      <Button
+        buttonType="button"
+        buttonName="add more meals"
+        onClick={handleCloseModal}
+      />
+    </>
+  );
+
+  const deleteMealPlanModalButtons = (
+    <>
+      <Button
+        buttonType="button"
+        buttonName="yes, delete it"
+        modifier="destructive"
+        onClick={handleDeleteMealPlan}
+      />
+      <Button
+        buttonType="button"
+        buttonName="no, keep it"
+        onClick={handleCloseModal}
+      />
+    </>
+  );
+
   return (
     <Layout>
       <h1 className="title text-align-center">Meal Plan</h1>
@@ -155,7 +198,7 @@ const PlannerPage: NextPage = () => {
             buttonType="button"
             buttonName="delete meal plan"
             modifier="destructive"
-            onClick={handleDeleteMealPlan}
+            onClick={checkDeleteMealPlan}
           />
         </div>
       </div>
@@ -169,23 +212,14 @@ const PlannerPage: NextPage = () => {
         />
       )}
 
-      {modalIsOpen && (
+      {modal.open && (
         <Modal
           onClick={handleCloseModal}
         >
-          <p>Shopping list created!</p>
-          <div className="grid-two-cols">
-            <Button
-              buttonType="button"
-              buttonName="check it out"
-              modifier="link"
-              onClick={handleNavigateToShoppingList}
-            />
-            <Button
-              buttonType="button"
-              buttonName="add more meals"
-              onClick={handleCloseModal}
-            />
+          <p>{modal.message}</p>
+          <div className="obj-grid-two-cols">
+            {(modal.message === 'Shopping list created!') && shoppingListCreatedModalButtons }
+            {(modal.message === 'Delete meal plan?') && deleteMealPlanModalButtons }
           </div>
         </Modal>
       )}
