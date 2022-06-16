@@ -53,30 +53,32 @@ const RecipesPage: NextPage = () => {
         <h1 className="title text-align-center">Recipe Book</h1>
       </PageHeader>
 
-      <Button
-        buttonType="button"
-        buttonName="add recipe"
-        onClick={handleNavigateToRecipeForm}
-      />
+      <div className="obj-page-content">
+        <Button
+          buttonType="button"
+          buttonName="add recipe"
+          onClick={handleNavigateToRecipeForm}
+        />
 
-      {recipes && (
-        <>
-          <RecipeBookCategory
-            categoryName="Breakfast Recipes"
-            categoryRecipes={recipes.breakfast}
-          />
+        {recipes && (
+          <>
+            <RecipeBookCategory
+              categoryName="Breakfast Recipes"
+              categoryRecipes={recipes.breakfast}
+            />
 
-          <RecipeBookCategory
-            categoryName="Lunch Recipes"
-            categoryRecipes={recipes.lunch}
-          />
+            <RecipeBookCategory
+              categoryName="Lunch Recipes"
+              categoryRecipes={recipes.lunch}
+            />
 
-          <RecipeBookCategory
-            categoryName="Dinner Recipes"
-            categoryRecipes={recipes.dinner}
-          />
-        </>
-      )}
+            <RecipeBookCategory
+              categoryName="Dinner Recipes"
+              categoryRecipes={recipes.dinner}
+            />
+          </>
+        )}
+      </div>
     </Layout>
   );
 };

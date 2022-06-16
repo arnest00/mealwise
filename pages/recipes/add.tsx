@@ -10,7 +10,9 @@ const AddRecipePage: NextPage = () => (
       <h1 className="title text-align-center">Add Recipe</h1>
     </PageHeader>
 
-    <RecipeForm />
+    <div className="obj-page-content">
+      <RecipeForm />
+    </div>
   </Layout>
 );
 

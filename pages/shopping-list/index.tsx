@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 
-import { getShoppingList, deleteShoppingList } from '../../services/dbService';
+import { createShoppingList, getShoppingList, deleteShoppingList } from '../../services/dbService';
 
 import Button from '../../components/atoms/Button';
 import Modal from '../../components/atoms/Modal';
@@ -35,7 +35,22 @@ const ShoppingListPage: NextPage = () => {
   useEffect(() => {
     const getAndSetShoppingList = async () => {
       try {
-        const shoppingListItems = await getShoppingList();
+        let shoppingListItems;
+
+        shoppingListItems = await getShoppingList();
+        if (!shoppingListItems) {
+          await createShoppingList({
+            0: [],
+            1: [],
+            2: [],
+            3: [],
+            4: [],
+            5: [],
+            6: [],
+            7: [],
+          });
+          shoppingListItems = await getShoppingList();
+        }
 
         setShoppingList(shoppingListItems);
       } catch (err) {
@@ -52,17 +67,19 @@ const ShoppingListPage: NextPage = () => {
         <h1 className="title text-align-center">Shopping List</h1>
       </PageHeader>
 
-      <Button
-        buttonType="button"
-        buttonName="delete shopping list"
-        modifier="destructive"
-        onClick={checkDeleteShoppingList}
-      />
+      <div className="obj-page-content">
+        <Button
+          buttonType="button"
+          buttonName="delete shopping list"
+          modifier="destructive"
+          onClick={checkDeleteShoppingList}
+        />
 
-      <ShoppingList
-        items={shoppingList.items}
-        misc={shoppingList.misc}
-      />
+        <ShoppingList
+          items={shoppingList.items}
+          misc={shoppingList.misc}
+        />
+      </div>
 
       {modalIsOpen && (
         <Modal

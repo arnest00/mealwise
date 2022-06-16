@@ -172,48 +172,50 @@ const PlannerPage: NextPage = () => {
         <h1 className="title text-align-center">Meal Plan</h1>
       </PageHeader>
 
-      <div>
-        <label htmlFor="shoppingDay">
-          Select the day of the week when you go shopping:
+      <div className="obj-page-content">
+        <div>
+          <label htmlFor="shoppingDay">
+            Select the day of the week when you go shopping:
 
-          <select
-            name="shoppingDay"
-            onChange={handleSelect}
-            value={shoppingDay}
-          >
-            <option aria-label="none" value="" />
-            {DAYS_OF_THE_WEEK.map((day) => (
-              <option key={day} value={day}>
-                {day}
-              </option>
-            ))}
-          </select>
-        </label>
+            <select
+              name="shoppingDay"
+              onChange={handleSelect}
+              defaultValue={shoppingDay || ''}
+            >
+              <option aria-label="none" value="Choose an option" />
+              {DAYS_OF_THE_WEEK.map((day) => (
+                <option key={day} value={day}>
+                  {day}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <div className="obj-grid-two-cols">
-          <Button
-            buttonType="button"
-            buttonName="create shopping list"
-            onClick={handleCreateShoppingList}
-          />
+          <div className="obj-grid-two-cols">
+            <Button
+              buttonType="button"
+              buttonName="create shopping list"
+              onClick={handleCreateShoppingList}
+            />
 
-          <Button
-            buttonType="button"
-            buttonName="delete meal plan"
-            modifier="destructive"
-            onClick={checkDeleteMealPlan}
-          />
+            <Button
+              buttonType="button"
+              buttonName="delete meal plan"
+              modifier="destructive"
+              onClick={checkDeleteMealPlan}
+            />
+          </div>
         </div>
-      </div>
 
-      {shoppingDay && (
-        <Planner
-          daysOfTheWeek={DAYS_OF_THE_WEEK}
-          shoppingDay={shoppingDay}
-          plannedMeals={plannedMeals}
-          plannerNotes={plannerNotes}
-        />
-      )}
+        {shoppingDay && (
+          <Planner
+            daysOfTheWeek={DAYS_OF_THE_WEEK}
+            shoppingDay={shoppingDay}
+            plannedMeals={plannedMeals}
+            plannerNotes={plannerNotes}
+          />
+        )}
+      </div>
 
       {modal.open && (
         <Modal

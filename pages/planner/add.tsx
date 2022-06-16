@@ -49,27 +49,29 @@ const AddMealPage: NextPage = () => {
         <h1 className="section text-align-center">{`Add Meal to ${day}`}</h1>
       </PageHeader>
 
-      {meals && (
-        <>
-          <MealsList
-            dayId={id}
-            categoryName="Breakfast"
-            meals={meals.breakfast}
-          />
+      <div className="obj-page-content">
+        {meals && (
+          <>
+            <MealsList
+              dayId={id}
+              categoryName="Breakfast"
+              meals={meals.breakfast}
+            />
 
-          <MealsList
-            dayId={id}
-            categoryName="Lunch"
-            meals={meals.lunch}
-          />
+            <MealsList
+              dayId={id}
+              categoryName="Lunch"
+              meals={meals.lunch}
+            />
 
-          <MealsList
-            dayId={id}
-            categoryName="Dinner"
-            meals={meals.dinner}
-          />
-        </>
-      )}
+            <MealsList
+              dayId={id}
+              categoryName="Dinner"
+              meals={meals.dinner}
+            />
+          </>
+        )}
+      </div>
     </Layout>
   );
 };
