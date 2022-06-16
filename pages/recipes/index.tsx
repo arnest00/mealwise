@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import IRecipe from '../../interfaces/IRecipe';
 import IRecipeBook from '../../interfaces/IRecipeBook';
 import { getAllRecipes } from '../../services/dbService';
 
+import Button from '../../components/atoms/Button';
 import Layout from '../../components/organisms/Layout';
 import RecipeBookCategory from '../../components/organisms/RecipeBookCategory';
 
 const RecipesPage: NextPage = () => {
   const [recipes, setRecipes] = useState<IRecipeBook>();
+  const router = useRouter();
 
   useEffect(() => {
     const getAndSetData = async () => {
@@ -40,15 +42,19 @@ const RecipesPage: NextPage = () => {
     getAndSetData();
   });
 
+  const handleNavigateToRecipeForm = () => {
+    router.push('/recipes/add');
+  };
+
   return (
     <Layout>
       <h1 className="title text-align-center">Recipe Book</h1>
 
-      <ul>
-        <li>
-          <Link href="/recipes/add">Add Recipe</Link>
-        </li>
-      </ul>
+      <Button
+        buttonType="button"
+        buttonName="add recipe"
+        onClick={handleNavigateToRecipeForm}
+      />
 
       {recipes && (
         <>

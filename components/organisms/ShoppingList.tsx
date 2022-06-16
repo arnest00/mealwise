@@ -12,8 +12,8 @@ import MiscListItem from '../molecules/MiscListItem';
 import ShoppingListItem from '../molecules/ShopplingListItem';
 
 type ShoppingListProps = {
-  items: { id: string, itemName: string }[] | [],
-  misc: { id: string, itemName: string }[] | [],
+  items?: { id: string, itemName: string }[] | [],
+  misc?: { id: string, itemName: string }[] | [],
 };
 
 const ShoppingList = ({ items, misc }: ShoppingListProps) => {
@@ -53,7 +53,7 @@ const ShoppingList = ({ items, misc }: ShoppingListProps) => {
 
   return (
     <article>
-      {items.map((item) => (
+      {items?.map((item) => (
         <ShoppingListItem
           key={item.id}
           id={item.id}
@@ -64,7 +64,7 @@ const ShoppingList = ({ items, misc }: ShoppingListProps) => {
       <h2 className="section">Other Items</h2>
 
       <section>
-        {misc.map((item) => (
+        {misc?.map((item) => (
           <MiscListItem
             key={item.id}
             id={item.id}
@@ -101,6 +101,11 @@ const ShoppingList = ({ items, misc }: ShoppingListProps) => {
       <div ref={bottomRef} />
     </article>
   );
+};
+
+ShoppingList.defaultProps = {
+  items: [],
+  misc: [],
 };
 
 export default ShoppingList;

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 import Button from '../../components/atoms/Button';
+import Modal from '../../components/atoms/Modal';
 import Layout from '../../components/organisms/Layout';
 import Planner from '../../components/organisms/Planner';
 
@@ -29,6 +31,8 @@ const PlannerPage: NextPage = () => {
   const [shoppingDay, setShoppingDay] = useState('');
   const [plannedMeals, setPlannedMeals] = useState<MealPlan>({});
   const [plannerNotes, setPlannerNotes] = useState<Notes>({});
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const router = useRouter();
 
   const DAYS_OF_THE_WEEK = [
     'Sunday',
@@ -44,17 +48,28 @@ const PlannerPage: NextPage = () => {
     selectShoppingDay(e.target.value);
     createMealPlan();
     createPlanNotes();
+    createShoppingList(plannedMeals);
 
     setShoppingDay(e.target.value);
   };
 
   const handleCreateShoppingList = () => {
     createShoppingList(plannedMeals);
+    setModalIsOpen(true);
   };
 
   const handleDeleteMealPlan = () => {
     deleteMealPlan();
     deletePlanNotes();
+  };
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const handleNavigateToShoppingList = () => {
+    setModalIsOpen(false);
+    router.push('/shopping-list');
   };
 
   useEffect(() => {
@@ -152,6 +167,27 @@ const PlannerPage: NextPage = () => {
           plannedMeals={plannedMeals}
           plannerNotes={plannerNotes}
         />
+      )}
+
+      {modalIsOpen && (
+        <Modal
+          onClick={handleCloseModal}
+        >
+          <p>Shopping list created!</p>
+          <div className="grid-two-cols">
+            <Button
+              buttonType="button"
+              buttonName="check it out"
+              modifier="link"
+              onClick={handleNavigateToShoppingList}
+            />
+            <Button
+              buttonType="button"
+              buttonName="add more meals"
+              onClick={handleCloseModal}
+            />
+          </div>
+        </Modal>
       )}
     </Layout>
   );

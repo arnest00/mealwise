@@ -26,6 +26,7 @@ const SelectGroup = ({
       </label>
 
       <select name={selectName} required={isRequired} onChange={onChange} value={value} className="cmp-input-group__select">
+        <option value="" className="cmp-input-group__option" disabled>Choose an option</option>
         {options.map((option) => (
           <option key={option} value={option} className="cmp-input-group__option">{option}</option>
         ))}

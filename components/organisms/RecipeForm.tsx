@@ -4,25 +4,26 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
 
 import IFormData from '../../interfaces/IFormData';
 import { addRecipe } from '../../services/dbService';
 
-import InputGroup from '../atoms/InputGroup';
-import SelectGroup from '../atoms/SelectGroup';
 import Button from '../atoms/Button';
+import InputGroup from '../atoms/InputGroup';
+import Modal from '../atoms/Modal';
+import SelectGroup from '../atoms/SelectGroup';
 import IngredientInputs from '../molecules/IngredientInputs';
 
 const RecipeForm = () => {
   const formBottomRef = useRef<null | HTMLDivElement>(null);
-
   const [status, setStatus] = useState('');
   const [formData, setFormData] = useState<IFormData>({
     name: '',
     description: '',
     link: '',
-    category: 'Breakfast',
+    category: '',
     servings: 1,
   });
   const [ingredientsList, setIngredientsList] = useState([
@@ -31,6 +32,8 @@ const RecipeForm = () => {
       content: '',
     },
   ]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     formBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -124,108 +127,138 @@ const RecipeForm = () => {
     }
 
     setStatus(message);
+    setModalIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const handleNavigateToRecipeBook = () => {
+    setModalIsOpen(false);
+    router.push('/recipes');
   };
 
   return (
-    <form className="obj-form" onSubmit={handleSubmit}>
-      <p>{status}</p>
+    <>
+      <form className="obj-form" onSubmit={handleSubmit}>
+        <fieldset className="obj-form__fieldset">
+          <legend className="bigger">Recipe Information</legend>
 
-      <fieldset className="obj-form__fieldset">
-        <legend className="bigger">Recipe Information</legend>
-
-        <InputGroup
-          inputName="name"
-          inputType="text"
-          isRequired
-          onChange={handleNameChange}
-          value={formData.name}
-        />
-
-        <InputGroup
-          inputName="description"
-          inputType="text"
-          isRequired={false}
-          onChange={handleDescriptionChange}
-          value={formData.description}
-        />
-
-        <InputGroup
-          inputName="link"
-          inputType="url"
-          isRequired={false}
-          onChange={handleLinkChange}
-          value={formData.link}
-        />
-
-        <div className="obj-grid-two-col">
-          <SelectGroup
-            selectName="category"
+          <InputGroup
+            inputName="name"
+            inputType="text"
             isRequired
-            onChange={handleCategoryChange}
-            value={formData.category}
-            options={[
-              'Breakfast',
-              'Lunch',
-              'Dinner',
-            ]}
+            onChange={handleNameChange}
+            value={formData.name}
           />
 
           <InputGroup
-            inputName="servings"
-            inputType="number"
+            inputName="description"
+            inputType="text"
             isRequired={false}
-            onChange={handleServingsChange}
-            value={formData.servings}
+            onChange={handleDescriptionChange}
+            value={formData.description}
+          />
+
+          <InputGroup
+            inputName="link"
+            inputType="url"
+            isRequired={false}
+            onChange={handleLinkChange}
+            value={formData.link}
+          />
+
+          <div className="obj-grid-two-col">
+            <SelectGroup
+              selectName="category"
+              isRequired
+              onChange={handleCategoryChange}
+              value={formData.category}
+              options={[
+                'Breakfast',
+                'Lunch',
+                'Dinner',
+              ]}
+            />
+
+            <InputGroup
+              inputName="servings"
+              inputType="number"
+              isRequired={false}
+              onChange={handleServingsChange}
+              value={formData.servings}
+            />
+          </div>
+        </fieldset>
+
+        <fieldset className="obj-form__fieldset">
+          <legend className="bigger">Ingredient Information</legend>
+
+          <p className="smaller">
+            Add ingredients by denoting quantity, unit, and type of ingredient.
+            {' '}
+            Just the quantity and type of ingredient would also be sufficient. For example, &quot;1
+            {' '}
+            <abbr title="tablespoon">
+              tbsp
+            </abbr>
+            {' '}
+            olive oil&quot; or &quot;3 apples&quot;.
+          </p>
+
+          {ingredientsList.map(({ id, content }) => (
+            <IngredientInputs
+              key={id}
+              onClick={() => handleRemoveIngredient(id)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleIngredientChange(e, id)}
+              value={content}
+            />
+          ))}
+
+          <Button
+            buttonType="button"
+            buttonName="add ingredient"
+            onClick={handleAddIngredient}
+          />
+        </fieldset>
+
+        <div className="obj-grid-two-cols">
+          <Button
+            buttonType="submit"
+            buttonName="save"
+            modifier="positive"
+          />
+          <Button
+            buttonType="reset"
+            buttonName="clear"
+            modifier="destructive"
           />
         </div>
-      </fieldset>
 
-      <fieldset className="obj-form__fieldset">
-        <legend className="bigger">Ingredient Information</legend>
-
-        <p className="smaller">
-          Add ingredients by denoting quantity, unit, and type of ingredient.
-          {' '}
-          Just the quantity and type of ingredient would also be sufficient. For example, &quot;1
-          {' '}
-          <abbr title="tablespoon">
-            tbsp
-          </abbr>
-          {' '}
-          olive oil&quot; or &quot;3 apples&quot;.
-        </p>
-
-        {ingredientsList.map(({ id, content }) => (
-          <IngredientInputs
-            key={id}
-            onClick={() => handleRemoveIngredient(id)}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleIngredientChange(e, id)}
-            value={content}
-          />
-        ))}
-
-        <Button
-          buttonType="button"
-          buttonName="add ingredient"
-          onClick={handleAddIngredient}
-        />
-      </fieldset>
-
-      <div className="obj-grid-two-cols">
-        <Button
-          buttonType="submit"
-          buttonName="save"
-          modifier="positive"
-        />
-        <Button
-          buttonType="reset"
-          buttonName="clear"
-          modifier="destructive"
-        />
-      </div>
-
-      <div ref={formBottomRef} />
-    </form>
+        <div ref={formBottomRef} />
+      </form>
+      {modalIsOpen && (
+        <Modal
+          onClick={handleCloseModal}
+        >
+          <p>{status}</p>
+          <div className="grid-two-cols">
+            <Button
+              buttonType="button"
+              buttonName="see all recipes"
+              modifier="link"
+              onClick={handleNavigateToRecipeBook}
+            />
+            <Button
+              buttonType="button"
+              buttonName="add another recipe"
+              onClick={handleCloseModal}
+            />
+          </div>
+        </Modal>
+      )}
+    </>
   );
 };
 
