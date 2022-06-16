@@ -5,6 +5,7 @@ import { getShoppingList, deleteShoppingList } from '../../services/dbService';
 
 import Button from '../../components/atoms/Button';
 import Modal from '../../components/atoms/Modal';
+import PageHeader from '../../components/atoms/PageHeader';
 import Layout from '../../components/organisms/Layout';
 import ShoppingList from '../../components/organisms/ShoppingList';
 
@@ -47,9 +48,9 @@ const ShoppingListPage: NextPage = () => {
 
   return (
     <Layout>
-      <h1 className="title text-align-center">
-        Shopping List
-      </h1>
+      <PageHeader>
+        <h1 className="title text-align-center">Shopping List</h1>
+      </PageHeader>
 
       <Button
         buttonType="button"

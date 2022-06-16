@@ -1,0 +1,9 @@
+.cmp-page-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-image: url('/texture-30.png') 9 fill repeat;
+  background-color: $primary-teal-30;
+  color: $neutral-white;
+  margin-bottom: 1rem;
+}

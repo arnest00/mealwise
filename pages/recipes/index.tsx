@@ -7,6 +7,7 @@ import IRecipeBook from '../../interfaces/IRecipeBook';
 import { getAllRecipes } from '../../services/dbService';
 
 import Button from '../../components/atoms/Button';
+import PageHeader from '../../components/atoms/PageHeader';
 import Layout from '../../components/organisms/Layout';
 import RecipeBookCategory from '../../components/organisms/RecipeBookCategory';
 
@@ -48,7 +49,9 @@ const RecipesPage: NextPage = () => {
 
   return (
     <Layout>
-      <h1 className="title text-align-center">Recipe Book</h1>
+      <PageHeader>
+        <h1 className="title text-align-center">Recipe Book</h1>
+      </PageHeader>
 
       <Button
         buttonType="button"
@@ -59,17 +62,17 @@ const RecipesPage: NextPage = () => {
       {recipes && (
         <>
           <RecipeBookCategory
-            categoryName="breakfast"
+            categoryName="Breakfast Recipes"
             categoryRecipes={recipes.breakfast}
           />
 
           <RecipeBookCategory
-            categoryName="lunch"
+            categoryName="Lunch Recipes"
             categoryRecipes={recipes.lunch}
           />
 
           <RecipeBookCategory
-            categoryName="dinner"
+            categoryName="Dinner Recipes"
             categoryRecipes={recipes.dinner}
           />
         </>

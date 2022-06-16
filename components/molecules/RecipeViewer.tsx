@@ -3,6 +3,8 @@ import Link from 'next/link';
 
 import IRecipe from '../../interfaces/IRecipe';
 
+import PageHeader from '../atoms/PageHeader';
+
 const RecipeViewer = ({
   name,
   description,
@@ -11,7 +13,9 @@ const RecipeViewer = ({
   ingredients,
 }: IRecipe) => (
   <article>
-    <h3>{name}</h3>
+    <PageHeader>
+      <h3>{`Viewing ${name}`}</h3>
+    </PageHeader>
 
     <h4>{category}</h4>
 

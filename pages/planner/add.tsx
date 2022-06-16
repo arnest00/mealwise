@@ -6,6 +6,7 @@ import IRecipe from '../../interfaces/IRecipe';
 import IRecipeBook from '../../interfaces/IRecipeBook';
 import { getAllRecipes } from '../../services/dbService';
 
+import PageHeader from '../../components/atoms/PageHeader';
 import MealsList from '../../components/molecules/MealsList';
 import Layout from '../../components/organisms/Layout';
 
@@ -44,11 +45,9 @@ const AddMealPage: NextPage = () => {
 
   return (
     <Layout>
-      <h1 className="title text-align-center">
-        Add Meal to
-        {' '}
-        {day}
-      </h1>
+      <PageHeader>
+        <h1 className="section text-align-center">{`Add Meal to ${day}`}</h1>
+      </PageHeader>
 
       {meals && (
         <>

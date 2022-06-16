@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 import Button from '../../components/atoms/Button';
 import Modal from '../../components/atoms/Modal';
+import PageHeader from '../../components/atoms/PageHeader';
 import Layout from '../../components/organisms/Layout';
 import Planner from '../../components/organisms/Planner';
 
@@ -167,7 +168,9 @@ const PlannerPage: NextPage = () => {
 
   return (
     <Layout>
-      <h1 className="title text-align-center">Meal Plan</h1>
+      <PageHeader>
+        <h1 className="title text-align-center">Meal Plan</h1>
+      </PageHeader>
 
       <div>
         <label htmlFor="shoppingDay">
