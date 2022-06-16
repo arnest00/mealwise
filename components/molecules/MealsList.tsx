@@ -27,15 +27,15 @@ const MealsList = ({ dayId, categoryName, meals }: MealsListProps) => {
       <h2 className="section">{categoryName}</h2>
 
       {meals.map((meal) => (
-        <div key={meal.id} className="obj-grid-end-button">
-          <Link href={`/recipes/${meal.id}`}>
-            <a>{meal.name}</a>
-          </Link>
-
+        <div key={meal.id} className="obj-grid-start-button">
           <IconButton
             plus
             onClick={() => handleClick(dayId, meal.id)}
           />
+
+          <Link href={`/recipes/${meal.id}`}>
+            <a>{meal.name}</a>
+          </Link>
         </div>
       ))}
     </section>
