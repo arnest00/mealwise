@@ -86,6 +86,8 @@ const RecipeForm = () => {
   };
 
   const handleRemoveIngredient = (id: string) => {
+    if (ingredientsList.length === 1) return;
+
     const newIngredientsList = [...ingredientsList]
       .filter((ingredient) => ingredient.id !== id);
 
@@ -212,6 +214,7 @@ const RecipeForm = () => {
               key={id}
               onClick={() => handleRemoveIngredient(id)}
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleIngredientChange(e, id)}
+              onKeyDownFunction={handleAddIngredient}
               value={content}
             />
           ))}

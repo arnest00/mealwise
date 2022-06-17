@@ -1,5 +1,5 @@
 import {
-  ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, useState,
+  ChangeEvent, FocusEvent, KeyboardEvent, useState,
 } from 'react';
 
 type EditableTextProps = {
@@ -13,8 +13,6 @@ const EditableText = ({
   text, textId, setText, dayId,
 }: EditableTextProps) => {
   const [editValue, setEditValue] = useState(text);
-
-  const handleClick = (e: MouseEvent<HTMLInputElement>) => e.currentTarget.select();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => setEditValue(e.currentTarget.value);
 
@@ -38,7 +36,6 @@ const EditableText = ({
         className="cmp-editable-text__input"
         type="text"
         value={editValue}
-        onClick={(e) => handleClick(e)}
         onChange={(e) => handleChange(e)}
         onKeyDown={(e) => handleOnKeyDown(e)}
         onBlur={(e) => handleBlur(e)}
