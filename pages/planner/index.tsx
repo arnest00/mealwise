@@ -180,9 +180,9 @@ const PlannerPage: NextPage = () => {
             <select
               name="shoppingDay"
               onChange={handleSelect}
-              defaultValue={shoppingDay || ''}
+              value={shoppingDay || ''}
             >
-              <option aria-label="none" value="Choose an option" />
+              <option aria-label="none" value="" disabled>Choose an option</option>
               {DAYS_OF_THE_WEEK.map((day) => (
                 <option key={day} value={day}>
                   {day}

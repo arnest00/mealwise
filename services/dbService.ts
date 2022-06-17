@@ -60,6 +60,10 @@ export const addRecipe = async (formData: IFormData, ingredientsList: IIngredien
   }
 };
 
+export const deleteRecipe = async (id: string) => {
+  await db.recipes.delete(id);
+};
+
 export const getAllRecipes = async () => {
   const recipes = await db.recipes.toArray();
 
