@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
 
 import IFormData from '../../interfaces/IFormData';
-import { addRecipe } from '../../services/dbService';
+import { addRecipe, getRecipeById, editRecipe } from '../../services/dbService';
 
 import Button from '../atoms/Button';
 import InputGroup from '../atoms/InputGroup';
@@ -16,7 +16,11 @@ import Modal from '../atoms/Modal';
 import SelectGroup from '../atoms/SelectGroup';
 import IngredientInputs from '../molecules/IngredientInputs';
 
-const RecipeForm = () => {
+type RecipeFormProps = {
+  isEditing?: boolean,
+};
+
+const RecipeForm = ({ isEditing }: RecipeFormProps) => {
   const formBottomRef = useRef<null | HTMLDivElement>(null);
   const [status, setStatus] = useState('');
   const [formData, setFormData] = useState<IFormData>({
@@ -34,10 +38,24 @@ const RecipeForm = () => {
   ]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const router = useRouter();
+  const recipeId = router.query.id ? router.query.id.toString() : '';
 
   useEffect(() => {
     formBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [ingredientsList]);
+
+  useEffect(() => {
+    const getAndSetData = async (id: string) => {
+      const fetchedRecipe = await getRecipeById(id);
+
+      setFormData(fetchedRecipe);
+      setIngredientsList(fetchedRecipe.ingredients);
+    };
+
+    if (isEditing) {
+      getAndSetData(recipeId);
+    }
+  }, [isEditing, recipeId]);
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newFormData = { ...formData };
@@ -109,27 +127,36 @@ const RecipeForm = () => {
   ) => {
     e.preventDefault();
 
-    const { result, message } = await addRecipe(formData, ingredientsList);
+    if (isEditing) {
+      const { result, message } = await editRecipe(recipeId, formData, ingredientsList);
 
-    if (result !== 'error') {
-      e.target.reset();
-      setFormData({
-        name: '',
-        description: '',
-        link: '',
-        category: 'Breakfast',
-        servings: 1,
-      });
-      setIngredientsList([
-        {
-          id: nanoid(),
-          content: '',
-        },
-      ]);
+      if (result !== 'error') {
+        setStatus(message);
+        setModalIsOpen(true);
+      }
+    } else {
+      const { result, message } = await addRecipe(formData, ingredientsList);
+
+      if (result !== 'error') {
+        e.target.reset();
+        setFormData({
+          name: '',
+          description: '',
+          link: '',
+          category: 'Breakfast',
+          servings: 1,
+        });
+        setIngredientsList([
+          {
+            id: nanoid(),
+            content: '',
+          },
+        ]);
+      }
+
+      setStatus(message);
+      setModalIsOpen(true);
     }
-
-    setStatus(message);
-    setModalIsOpen(true);
   };
 
   const handleCloseModal = () => {
@@ -139,6 +166,14 @@ const RecipeForm = () => {
   const handleNavigateToRecipeBook = () => {
     setModalIsOpen(false);
     router.push('/recipes');
+  };
+
+  const handleCancelEdit = () => {
+    router.back();
+  };
+
+  const handleNavigateBack = () => {
+    router.back();
   };
 
   return (
@@ -227,16 +262,34 @@ const RecipeForm = () => {
         </fieldset>
 
         <div className="obj-grid-two-cols">
-          <Button
-            buttonType="submit"
-            buttonName="save"
-            modifier="positive"
-          />
-          <Button
-            buttonType="reset"
-            buttonName="clear"
-            modifier="destructive"
-          />
+          {!isEditing && (
+            <>
+              <Button
+                buttonType="submit"
+                buttonName="save"
+                modifier="positive"
+              />
+              <Button
+                buttonType="reset"
+                buttonName="clear"
+                modifier="destructive"
+              />
+            </>
+          )}
+          {isEditing && (
+            <>
+              <Button
+                buttonType="submit"
+                buttonName="Update"
+                modifier="positive"
+              />
+              <Button
+                buttonType="button"
+                buttonName="cancel"
+                onClick={handleCancelEdit}
+              />
+            </>
+          )}
         </div>
 
         <div ref={formBottomRef} />
@@ -253,16 +306,29 @@ const RecipeForm = () => {
               modifier="link"
               onClick={handleNavigateToRecipeBook}
             />
-            <Button
-              buttonType="button"
-              buttonName="add another recipe"
-              onClick={handleCloseModal}
-            />
+            {!isEditing && (
+              <Button
+                buttonType="button"
+                buttonName="add another recipe"
+                onClick={handleCloseModal}
+              />
+            )}
+            {isEditing && (
+              <Button
+                buttonType="button"
+                buttonName="back to recipe"
+                onClick={handleNavigateBack}
+              />
+            )}
           </div>
         </Modal>
       )}
     </>
   );
+};
+
+RecipeForm.defaultProps = {
+  isEditing: false,
 };
 
 export default RecipeForm;

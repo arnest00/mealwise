@@ -34,6 +34,10 @@ const RecipeViewer = ({
     deleteRecipe(id);
   };
 
+  const handleNavigateToEdit = () => {
+    router.push(`/recipes/edit/${id}`);
+  };
+
   return (
     <article>
       <PageHeader>
@@ -58,6 +62,11 @@ const RecipeViewer = ({
         </ul>
 
         <div className="obj-grid-two-cols">
+          <Button
+            buttonType="button"
+            buttonName="edit recipe"
+            onClick={handleNavigateToEdit}
+          />
           <Button
             buttonType="button"
             buttonName="delete recipe"

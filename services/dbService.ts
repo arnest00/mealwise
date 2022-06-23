@@ -101,6 +101,20 @@ export const getRecipeIngredientsById = async (id: string) => {
   return recipeIngredientsIds;
 };
 
+export const editRecipe = async (id: string, formData: IFormData, ingredients: IIngredient[]) => {
+  const updatedRecipe = {
+    ...formData,
+    ingredients,
+  };
+
+  await db.recipes.update(id, updatedRecipe);
+
+  return {
+    result: 'success',
+    message: `Recipe "${formData.name}" updated!`,
+  };
+};
+
 // shoppingDay
 export const selectShoppingDay = async (day: string) => {
   const previousDay = db.shoppingDay
