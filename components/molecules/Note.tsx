@@ -13,6 +13,7 @@ type NoteProps = {
 
 const Note = ({ dayId, id, content }: NoteProps) => {
   const [editing, setEditing] = useState(false);
+  const [isDeletingNote, setIsDeletingNote] = useState(false);
 
   const handleStartEditing = () => {
     setEditing(true);
@@ -24,11 +25,14 @@ const Note = ({ dayId, id, content }: NoteProps) => {
   };
 
   const handleDeletePlannerNote = (dayOfNote: number, noteId: string) => {
-    deletePlannerNote(dayOfNote, noteId);
+    setIsDeletingNote(true);
+    setTimeout(() => {
+      deletePlannerNote(dayOfNote, noteId);
+    }, 250);
   };
 
   return (
-    <div key={id} className="obj-grid-end-two-buttons">
+    <div key={id} className={`obj-grid-end-two-buttons ${isDeletingNote && 'fadeout'}`}>
       {!editing && (
         <span>{content}</span>
       )}

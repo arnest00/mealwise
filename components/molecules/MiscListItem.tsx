@@ -12,6 +12,7 @@ type ShoppingListProps = {
 
 const ShoppingListItem = ({ name, id }: ShoppingListProps) => {
   const [editing, setEditing] = useState(false);
+  const [isDeletingItem, setIsDeletingItem] = useState(false);
 
   const handleEditListItem = (itemId: string, editedValue: string) => {
     editShoppingListMisc(itemId, editedValue);
@@ -23,11 +24,14 @@ const ShoppingListItem = ({ name, id }: ShoppingListProps) => {
   };
 
   const handleDeleteListItem = (itemId: string) => {
-    deleteMiscListItem(itemId);
+    setIsDeletingItem(true);
+    setTimeout(() => {
+      deleteMiscListItem(itemId);
+    }, 250);
   };
 
   return (
-    <div className="obj-grid-end-two-buttons cmp-shopping-list-item">
+    <div className={`obj-grid-end-two-buttons cmp-shopping-list-item ${isDeletingItem && 'fadeout'}`}>
       {!editing && (
         <div>
           <input type="checkbox" name={id} className="cmp-shopping-list-item__checkbox" />

@@ -27,6 +27,7 @@ const DayContainer = ({
   const [notes, setNotes] = useState<{ id: string, content: string }[]>();
   const [isAddingNote, setIsAddingNote] = useState(false);
   const [newNoteValue, setNewNoteValue] = useState('');
+  const [isDeletingMeal, setIsDeletingMeal] = useState('');
   const router = useRouter();
 
   const handleAddMeal = () => {
@@ -40,7 +41,10 @@ const DayContainer = ({
   };
 
   const handleDeletePlannedMeal = (dayOfMeal: number, id: string) => {
-    deletePlannedMeal(dayOfMeal, id);
+    setIsDeletingMeal(id);
+    setTimeout(() => {
+      deletePlannedMeal(dayOfMeal, id);
+    }, 250);
   };
 
   const handleNoteChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +81,7 @@ const DayContainer = ({
       <h3 className="bigger text-align-center">{dayName}</h3>
 
       {meals?.map((meal: { id: string, recipeId: string, recipeName: string }) => (
-        <div key={meal.id} className="obj-grid-end-button">
+        <div key={meal.id} className={`obj-grid-end-button ${(isDeletingMeal === meal.id) && 'fadeout'}`}>
           <Link href={`/recipes/${meal.recipeId}`}>
             <a>{meal.recipeName}</a>
           </Link>
